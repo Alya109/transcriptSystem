@@ -23,7 +23,6 @@ def startFeature():
   menuFeature()
   return level, degree
     
-  # No degree feature as of now :(
 def menuFeature():
   print("\033[1mStudent Transcript Generation System\033[0m")
   print("======================================")
