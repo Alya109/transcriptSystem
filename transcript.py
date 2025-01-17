@@ -26,7 +26,7 @@ def startFeature():
 def menuFeature():
   print("\033[1mStudent Transcript Generation System\033[0m")
   print("======================================")
-  print("1. Student Details\n2.Statistics\n3.Transcript based on major courses")
+  print("1. Student Details\n2. Statistics\n3. Transcript based on major courses")
   print("4. Transcript based on minor courses\n5. Full Transcript\n6. Previous transcript request")
   print("7. Select another student\n8. Terminate the system")
   print("======================================")
