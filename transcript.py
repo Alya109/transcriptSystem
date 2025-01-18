@@ -1,3 +1,9 @@
+# This work done by group ##:
+# Araja, Prince Jeoff, {studentID}, {contribution}
+# Lumabi, Earl Vanesse, {studentID}, {contribution}
+# Modesto, Isaiah, {studentID}, {contribution}
+# Rivera, Robert Aron, {studentID}, {contribution}
+
 import time
 import numpy
 import os
@@ -5,8 +11,10 @@ import os
 # Clears the console output
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
+
 def sleep():
   time.sleep(2)
+
 # Start feature asking for student level and degree
 def startFeature():
   print("Select Student Level:")
@@ -35,11 +43,25 @@ def menuFeature():
   featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
   return choice
 
-def whateverFeatureThisIs():
+def detailsFeature():
 
-def featureOne():
+def statisticsFeature():
 
-def featureTwo():
+def majorTranscriptFeature():
+
+def minorTranscriptFeature():
+
+def fullTranscriptFeature():
+
+def previousRequestsFeature():
+
+def newStudentFeature():
+
+def terminateFeature():
+
+def main():
+
+
 
 
 
