@@ -41,7 +41,7 @@ def menuFeature():
   print("7. Select another student\n8. Terminate the system")
   print("======================================")
   featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
-  return choice
+  return featureChoice
 
 def detailsFeature():
 
