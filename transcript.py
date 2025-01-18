@@ -1,6 +1,6 @@
 # This work done by group ##:
 # Araja, Prince Jeoff, {studentID}, {contribution}
-# Lumabi, Earl Vanesse, {studentID}, {contribution}
+# Lumabi, Earl Vanesse, 2024-04985-MN-0, {contribution}
 # Modesto, Isaiah, {studentID}, {contribution}
 # Rivera, Robert Aron, {studentID}, {contribution}
 
@@ -14,6 +14,9 @@ def cls():
 
 def sleep():
   time.sleep(2)
+
+def loadCsv():
+  with open("studentDetails.csv", "w") as stdDetails:
 
 # Start feature asking for student level and degree
 def startFeature():
@@ -44,7 +47,7 @@ def menuFeature():
   return featureChoice
 
 def detailsFeature():
-
+  studentDetails = f"Name: {studentData[0]}\nstdID: {studentData[1]}\nLevel(s): {studentData[2]}\nNumber of terms: {studentData[3]}\n"
 def statisticsFeature():
 
 def majorTranscriptFeature():
