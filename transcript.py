@@ -2,7 +2,7 @@
 # Araja, Prince Jeoff, {studentID}, {contribution}
 # Lumabi, Earl Vanesse, 2024-04985-MN-0, {contribution}
 # Modesto, Isaiah, {studentID}, {contribution}
-# Rivera, Robert Aron, {studentID}, {contribution}
+# Rivera, Robert Aron, 2024-04019-MN-0, {contribution}
 
 import time
 import numpy
