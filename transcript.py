@@ -44,7 +44,7 @@ def startFeature():
         if level in ["U", "G", "B"]:
             break
         print("Invalid choice. Please try again.")
-
+    # needs fixing in degree part or just overhaul the input system tbh
     if level in ["G", "B"]:
         print("M - Master")
         print("D - Doctorate")
