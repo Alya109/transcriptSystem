@@ -5,7 +5,7 @@
 # Rivera, Robert Aron, 2024-04019-MN-0, {contribution}
 
 import time
-import numpy as np
+import pandas as pd
 import os
 
 # Clears the console output
@@ -21,7 +21,8 @@ def sleep(mode):
     elif mode == 2:
         time.sleep(4)
 
-def loadDetailsFile():
+def loadDetailsFile(filename):
+    return pd.read_csv(filename)
 
 # Start feature asking for student level and degree
 def startFeature():
