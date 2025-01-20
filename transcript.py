@@ -17,6 +17,7 @@ def sleep():
 
 def loadCsv():
   with open("studentDetails.csv", "w") as stdDetails:
+      studentData = stdDetails.readline()
 
 # Start feature asking for student level and degree
 def startFeature():
