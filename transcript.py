@@ -1,7 +1,7 @@
 # This work done by group ##:
 # Araja, Prince Jeoff, {studentID}, {contribution}
 # Lumabi, Earl Vanesse, 2024-04985-MN-0, {contribution}
-# Modesto, Isaiah, {studentID}, {contribution}
+# Modesto, Isaiah, 2024-16637-MN-0, {contribution}
 # Rivera, Robert Aron, 2024-04019-MN-0, {contribution}
 
 import time
@@ -55,6 +55,7 @@ def startFeature():
     return level, degree
     
 def menuFeature():
+    # Print the menu details
     print("\n\033[1mStudent Transcript Generation System\033[0m")
     print("======================================")
     print("1. Student Details\n2. Statistics\n3. Transcript based on major courses")
@@ -62,7 +63,35 @@ def menuFeature():
     print("7. Select another student\n8. Terminate the system")
     print("======================================")
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
-    # Di pa ayos to
+    return featureChoice
+
+# Details Feature showing students personal information
+def detailsFeature():
+    studentDetails = f"Name: {studentData[0]}\nstdID: {studentData[1]}\nLevel(s): {studentData[2]}\nNumber of terms: {studentData[3]}\n"
+
+# Statistics Feature shows student's records
+def statisticsFeature():
+
+# Major Transscript shows students transscript of record based on their major courses
+def majorTranscriptFeature():
+
+# Minor Transscript shows students transcript of record based on their minor courses
+def minorTranscriptFeature():
+
+# Full Transscript shows students transcript of record on both major and minor courses
+def fullTranscriptFeature():
+
+# Previous Request shows students recent request
+def previousRequestsFeature():
+
+# New Student Feature allows another student after clearing all previous data
+def newStudentFeature():
+
+# Terminate Feature shows the number of request during the session
+def terminateFeature():
+
+def main():
+
     if featureChoice == 1:
         detailsFeature()
     elif featureChoice == 2:
@@ -83,23 +112,4 @@ def menuFeature():
         return "Invalid choice. Please try again."
 
 
-def detailsFeature():
-    studentDetails = f"Name: {studentData[0]}\nstdID: {studentData[1]}\nLevel(s): {studentData[2]}\nNumber of terms: {studentData[3]}\n"
-def statisticsFeature():
-
-def majorTranscriptFeature():
-
-def minorTranscriptFeature():
-
-def fullTranscriptFeature():
-
-def previousRequestsFeature():
-
-def newStudentFeature():
-
-def terminateFeature():
-
-def main():
-
-    
 
