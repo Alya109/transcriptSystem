@@ -88,13 +88,17 @@ def menuFeature():
         return "Invalid choice. Please try again."
 
 # Details Feature showing students personal information
-def studentIDCheck(stdID, stdDetails):
-    while str(stdID).strip() not in stdDetails["stdID"].astype(str).str.strip().values:
-        print("Invalid ID. Please try again.")
-        stdID = input("Enter student ID: ")
-    return stdID
-
+def detailsFeature(stdID, stdDetails):
+    details = stdDetails.loc[stdDetails["ID"] == stdID]
     
+    details = f"{stdID}_details.txt"
+    
+    with open(details, "w") as file:
+        for column in details.columns:
+            stdRecord = f"{column}: {details.iloc[0][column]}"
+            print(stdRecord)
+            file.write(stdRecord + "\n")
+    sleep(2)
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
