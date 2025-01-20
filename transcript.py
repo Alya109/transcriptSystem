@@ -22,7 +22,8 @@ def sleep(mode):
         time.sleep(4)
 
 def loadDetailsFile(filename):
-    return pd.read_csv(filename)
+    stdDetails = pd.read_csv(filename)
+    
 
 # Start feature asking for student level and degree
 def startFeature():
@@ -67,9 +68,17 @@ def menuFeature():
     return featureChoice
 
 # Details Feature showing students personal information
-def detailsFeature():
-    studentDetails = f"Name: {studentData[0]}\nstdID: {studentData[1]}\nLevel(s): {studentData[2]}\nNumber of terms: {studentData[3]}\n"
+def detailsFeature(name, stdID, levels, terms, college, dept):
+    print(f"Name: {name}")
+    print(f"Student ID: {stdID}")
+    print(f"Level(s): {levels}")
+    print(f"Number of terms: {terms}")
+    print(f"College(s): {college}")
+    print(f"Department(s): {dept}")
 
+    sleep(1)
+
+    
 # Statistics Feature shows student's records
 def statisticsFeature():
 
