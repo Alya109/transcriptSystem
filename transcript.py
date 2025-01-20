@@ -88,22 +88,18 @@ def menuFeature():
         return "Invalid choice. Please try again."
 
 # Details Feature showing students personal information
-def detailsFeature(stdID, stdDetails):
-    details = stdDetails.loc[stdDetails["ID"] == stdID]
-    
-    details = f"{stdID}_details.txt"
-    
-    with open(details, "w") as file:
-        for column in details.columns:
-            stdRecord = f"{column}: {details.iloc[0][column]}"
-            print(stdRecord)
-            file.write(stdRecord + "\n")
-    sleep(2)
+def studentIDCheck(stdID, stdDetails):
+    while str(stdID).strip() not in stdDetails["stdID"].astype(str).str.strip().values:
+        print("Invalid ID. Please try again.")
+        stdID = input("Enter student ID: ")
+    return stdID
+
     
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
-def statisticsFeature():
+def statisticsFeature(stdID, stdDetails):
+    details = stdDetails.loc[stdDetails["ID"] == stdID]
     # For visual purposes
     # Undergraduate level
     print("===============================")
@@ -132,6 +128,7 @@ def statisticsFeature():
 
 # Major Transscript shows students transscript of record based on their major courses
 def majorTranscriptFeature():
+    details = stdDetails.loc[stdDetails["ID"] == stdID]
     # Visualization purposes for major courses
     print("Name:                 stdID:                 ")
     print("College:              Department:            ")
@@ -150,6 +147,7 @@ def majorTranscriptFeature():
 
 # Minor Transscript shows students transcript of record based on their minor courses
 def minorTranscriptFeature():
+    details = stdDetails.loc[stdDetails["ID"] == stdID]
     # Visualization purposes for minor courses
     print("Name:                 stdID:                 ")
     print("College:              Department:            ")
@@ -169,6 +167,7 @@ def minorTranscriptFeature():
 
 # Full Transscript shows students transcript of record on both major and minor courses
 def fullTranscriptFeature():
+    details = stdDetails.loc[stdDetails["ID"] == stdID]
     # Visualization for full transcript showing both minor and major courses
     print("Name:                 stdID:                 ")
     print("College:              Department:            ")
@@ -188,6 +187,7 @@ def fullTranscriptFeature():
 
 # Previous Request shows students recent request
 def previousRequestsFeature():
+    
     print("=============================================")
     print("  Request          Date           Time       ")
     print("=============================================")
@@ -199,6 +199,8 @@ def newStudentFeature():
 
 # Terminate Feature shows the number of request during the session
 def terminateFeature():
+    print("Terminating the system. Goodbye!")
+    exit()
 
 def main():
 
