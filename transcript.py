@@ -26,7 +26,7 @@ def loadDetailsFile(filename):
     return stdDetails
 
 def studentIDCheck(stdID, stdDetails):
-    while stdID not in stdDetails["ID"].values:
+    while str(stdID).strip() not in stdDetails["stdID"].astype(str).str.strip().values:
         print("Invalid ID. Please try again.")
         stdID = input("Enter student ID: ")
     return stdID
@@ -91,7 +91,7 @@ def menuFeature():
 def detailsFeature(stdID, stdDetails):
     details = stdDetails.loc[stdDetails["ID"] == stdID]
     
-    details = f"{stdID}_details.txt"
+    detailsStd = f"{stdID}details.txt"
     
     with open(details, "w") as file:
         for column in details.columns:
@@ -103,7 +103,7 @@ def detailsFeature(stdID, stdDetails):
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, stdDetails):
-    details = stdDetails.loc[stdDetails["ID"] == stdID]
+    courseData = stdDetails.loc[stdDetails["ID"] == stdID]
     # For visual purposes
     # Undergraduate level
     print("===============================")
