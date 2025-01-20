@@ -23,6 +23,13 @@ def sleep(mode):
 
 def loadDetailsFile(filename):
     stdDetails = pd.read_csv(filename)
+    return stdDetails
+
+def studentIDCheck(stdID, stdDetails):
+    while stdID not in stdDetails["ID"].values:
+        print("Invalid ID. Please try again.")
+        stdID = input("Enter student ID: ")
+    return stdID
     
 
 # Start feature asking for student level and degree
@@ -47,13 +54,8 @@ def startFeature():
             if degree in ["M", "D", "B0"]:
                 break
             print("Invalid choice. Please try again.")
-    while True:
-        stdID = input("Enter student ID: ")
         
-
-
     sleep(1)
-    menuFeature()
     return level, degree
     
 def menuFeature():
@@ -67,51 +69,130 @@ def menuFeature():
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
     
     if featureChoice == 1:
-        detailsFeature()
+        detailsFeature(stdID, stdDetails)
     elif featureChoice == 2:
-        statisticsFeature()
+        statisticsFeature(stdID, stsDetails)
     elif featureChoice == 3:
-        majorTranscriptFeature()
+        majorTranscriptFeature(stdID, stdDetails)
     elif featureChoice == 4:
-        minorTranscriptFeature()
+        minorTranscriptFeature(stdID, stdDetails)
     elif featureChoice == 5:
-        fullTranscriptFeature()
+        fullTranscriptFeature(stdID, stdDetails)
     elif featureChoice == 6:
-        previousRequestsFeature()
+        previousRequestsFeature(stdID, stdDetails)
     elif featureChoice == 7:
-        newStudentFeature()
+        newStudentFeature(stdID, stdDetails)
     elif featureChoice == 8:
-        terminateFeature()
+        terminateFeature(stdID, stdDetails)
     else:
         return "Invalid choice. Please try again."
 
 # Details Feature showing students personal information
-def detailsFeature(name, stdID, levels, terms, college, dept):
+def detailsFeature(stdID, stdDetails):
+    details = stdDetails.loc[stdDetails["ID"] == stdID]
+    
+    details = f"{stdID}_details.txt"
+    
+    with open(details, "w") as file:
+        for column in details.columns:
+            stdRecord = f"{column}: {details.iloc[0][column]}"
+            print(stdRecord)
+            file.write(stdRecord + "\n")
+    sleep(2)
+    
     # Haven't tested it yet
-    print(f"Name: {name}")
-    print(f"Student ID: {stdID}")
-    print(f"Level(s): {levels}")
-    print(f"Number of terms: {terms}")
-    print(f"College(s): {college}")
-    print(f"Department(s): {dept}")
-
-    sleep(1)
-
     
 # Statistics Feature shows student's records
 def statisticsFeature():
+    # For visual purposes
+    # Undergraduate level
+    print("===============================")
+    print("****** {levels} Level ******")
+    print("===============================")
+    print("Overall average (major and minor) for all terms: ")
+    print("Average (major and minor) for each term: ")
+    print("      Term 1: ")
+    print("      Term 2: ")
+    print("      Term 3: ")
+    print("Maximum grade(s) and in which term(s): ")
+    print("Minimum grade(s) and in which term(s): ")
+    print("Do you have any repeated course(s)? ")
+    # Graduate Level
+    print("===============================")
+    print("****** Graduate(M) Level ******")
+    print("===============================")
+    print("Overall average (major and minor) for all terms: ")
+    print("Average (major and minor) for each term: ")
+    print("      Term 1: ")
+    print("      Term 2: ")
+    print("      Term 3: ")
+    print("Maximum grade(s) and in which term(s): ")
+    print("Minimum grade(s) and in which term(s): ")
+    print("Do you have any repeated course(s)? ")
 
 # Major Transscript shows students transscript of record based on their major courses
 def majorTranscriptFeature():
+    # Visualization purposes for major courses
+    print("Name:                 stdID:                 ")
+    print("College:              Department:            ")
+    print("Major:                Minor:                 ")
+    print("Level:                Number of terms:       ")
+    print("=============================================")
+    print("**************      Term 1     **************")
+    print("=============================================")
+    print("course ID  course name  credit hours  grade  ")
+    print("c1         course 1     3             80     ")
+    print("c2         course 2     4             90     ")
+    print("Major average =         Overall average =    ")
+    print("=============================================")
+    print("        End of Transcript for Level(U)       ")
+    print("=============================================")
 
 # Minor Transscript shows students transcript of record based on their minor courses
 def minorTranscriptFeature():
+    # Visualization purposes for minor courses
+    print("Name:                 stdID:                 ")
+    print("College:              Department:            ")
+    print("Major:                Minor:                 ")
+    print("Level:                Number of terms:       ")
+    print("=============================================")
+    print("**************      Term 1     **************")
+    print("=============================================")
+    print("course ID  course name  credit hours  grade  ")
+    print("c1         course 1     3             80     ")
+    print("c2         course 2     4             90     ")
+    print("Major average =         Overall average =    ")
+    print("=============================================")
+    print("        End of Transcript for Level(U)       ")
+    print("=============================================")
+
 
 # Full Transscript shows students transcript of record on both major and minor courses
 def fullTranscriptFeature():
+    # Visualization for full transcript showing both minor and major courses
+    print("Name:                 stdID:                 ")
+    print("College:              Department:            ")
+    print("Major:                Minor:                 ")
+    print("Level:                Number of terms:       ")
+    print("=============================================")
+    print("**************      Term 1     **************")
+    print("=============================================")
+    print("course ID  course name  credit hours  grade  ")
+    print("c1         course 1     3             80     ")
+    print("c2         course 2     4             90     ")
+    print("Major average =         Overall average =    ")
+    print("=============================================")
+    print("        End of Transcript for Level(U)       ")
+    print("=============================================")
+
 
 # Previous Request shows students recent request
 def previousRequestsFeature():
+    print("=============================================")
+    print("  Request          Date           Time       ")
+    print("=============================================")
+    print("  Major          22/09/2020      13:30:09    ")
+    print("  Full           12/02/2021      14:40:03    ")
 
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
