@@ -18,7 +18,7 @@ def sleep(mode):
     if mode == 1:
         time.sleep(2)
     # Mode 2 for 4 second rest
-    elif:
+    elif mode == 2:
         time.sleep(4)
 
 def loadDetailsFile():
