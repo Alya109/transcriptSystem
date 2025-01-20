@@ -65,8 +65,23 @@ def terminateFeature():
 
 def main():
 
-
-
-
+    if featureChoice == 1:
+        detailsFeature()
+    elif featureChoice == 2:
+        statisticsFeature()
+    elif featureChoice == 3:
+        majorTranscriptFeature()
+    elif featureChoice == 4:
+        minorTranscriptFeature()
+    elif featureChoice == 5:
+        fullTranscriptFeature()
+    elif featureChoice == 6:
+        previousRequestsFeature()
+    elif featureChoice == 7:
+        newStudentFeature()
+    elif featureChoice == 8:
+        terminateFeature()
+    else:
+        return "Invalid choice. Please try again."
 
 
