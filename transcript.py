@@ -5,19 +5,23 @@
 # Rivera, Robert Aron, 2024-04019-MN-0, {contribution}
 
 import time
-import numpy
+import numpy as np
 import os
 
 # Clears the console output
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-def sleep():
-    time.sleep(2)
+# Sleep function to let the program rest for a few seconds
+def sleep(mode):
+    # Mode 1 for 2 second rest
+    if mode == 1:
+        time.sleep(2)
+    # Mode 2 for 4 second rest
+    else:
+        time.sleep(4)
 
-def loadCsv():
-    with open("studentDetails.csv", "w") as stdDetails:
-        studentData = stdDetails.readline()
+def loadDetailsFile():
 
 # Start feature asking for student level and degree
 def startFeature():
@@ -25,14 +29,28 @@ def startFeature():
     print("U - Undergraduate")
     print("G - Graduate")
     print("B - Both")
-    level = input("Enter your choice (U/G/B): ").upper()
-    
+    # Loop for input
+    while True:
+        level = input("Enter your choice (U/G/B): ").upper()
+        if level in ["U", "G", "B"]:
+            break
+        print("Invalid choice. Please try again.")
+
     if level in ["G", "B"]:
         print("M - Master")
         print("D - Doctorate")
         print("B0 - Both")
-        degree = input("Degree level (M/D/B0): ").upper()
-    sleep()
+        while True:
+            degree = input("Degree level (M/D/B0): ").upper()
+            if degree in ["M", "D", "B0"]:
+                break
+            print("Invalid choice. Please try again.")
+    while True:
+        stdID = input("Enter student ID: ")
+        
+
+
+    sleep(1)
     menuFeature()
     return level, degree
     
