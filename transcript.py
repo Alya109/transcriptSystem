@@ -62,26 +62,7 @@ def menuFeature():
     print("7. Select another student\n8. Terminate the system")
     print("======================================")
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
-    return featureChoice
-
-def detailsFeature():
-    studentDetails = f"Name: {studentData[0]}\nstdID: {studentData[1]}\nLevel(s): {studentData[2]}\nNumber of terms: {studentData[3]}\n"
-def statisticsFeature():
-
-def majorTranscriptFeature():
-
-def minorTranscriptFeature():
-
-def fullTranscriptFeature():
-
-def previousRequestsFeature():
-
-def newStudentFeature():
-
-def terminateFeature():
-
-def main():
-
+    # Di pa ayos to
     if featureChoice == 1:
         detailsFeature()
     elif featureChoice == 2:
@@ -101,4 +82,24 @@ def main():
     else:
         return "Invalid choice. Please try again."
 
+
+def detailsFeature():
+    studentDetails = f"Name: {studentData[0]}\nstdID: {studentData[1]}\nLevel(s): {studentData[2]}\nNumber of terms: {studentData[3]}\n"
+def statisticsFeature():
+
+def majorTranscriptFeature():
+
+def minorTranscriptFeature():
+
+def fullTranscriptFeature():
+
+def previousRequestsFeature():
+
+def newStudentFeature():
+
+def terminateFeature():
+
+def main():
+
+    
 
