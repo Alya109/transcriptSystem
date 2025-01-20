@@ -58,7 +58,7 @@ def startFeature():
     sleep(1)
     return level, degree
     
-def menuFeature():
+def menuFeature(stdID, stdDetails, requestCount):
     # Print the menu details
     print("\n\033[1mStudent Transcript Generation System\033[0m")
     print("======================================")
@@ -67,7 +67,8 @@ def menuFeature():
     print("7. Select another student\n8. Terminate the system")
     print("======================================")
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
-    
+
+    requestCount += 1
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails)
     elif featureChoice == 2:
@@ -79,13 +80,14 @@ def menuFeature():
     elif featureChoice == 5:
         fullTranscriptFeature(stdID, stdDetails)
     elif featureChoice == 6:
-        previousRequestsFeature(stdID, stdDetails)
+        previousRequestsFeature(stdID)
     elif featureChoice == 7:
-        newStudentFeature(stdID, stdDetails)
+        newStudentFeature(stdDetails)
     elif featureChoice == 8:
-        terminateFeature(stdID, stdDetails)
+        terminateFeature(requestCount)
     else:
-        return "Invalid choice. Please try again."
+        print("Invalid choice. Please try again.")
+    return requestCount
 
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails):
@@ -199,7 +201,11 @@ def previousRequestsFeature():
     print("  Full           12/02/2021      14:40:03    ")
 
 # New Student Feature allows another student after clearing all previous data
-def newStudentFeature():
+def newStudentFeature(stdDetails):
+    print("Clearing cache...")
+    sleep(1)
+    main()
+
 
 # Terminate Feature shows the number of request during the session
 def terminateFeature():
@@ -207,4 +213,19 @@ def terminateFeature():
     exit()
 
 def main():
+    
+    stdDetails = loadDetailsFile("studentDetails.csv")
+    sleep(1)
+    
+    # Get user input for student level and degree
+    level, degree = startFeature()
+    
+    # Gets studentID and checks if it matches the stdID in the database
+    stdID = input("Enter your student ID: ")
+    stdID = studentIDCheck(stdID, stdDetails)
+    
+    requestCount = 0
+    while True:
+        requestCount = menuFeature(stdID, stdDetails, requestCount)
+
 
