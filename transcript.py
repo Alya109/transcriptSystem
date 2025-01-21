@@ -136,7 +136,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     with open(exportInfo, 'w') as info:
         info.write(detailDisplay)
     print(detailDisplay)
-    sleep(1)
+    sleep(2)
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
@@ -184,7 +184,7 @@ def statisticsFeature(stdID, levels, degrees):
             print(statsDisplay)
         else:
         	print('No data was found with the data you entered\n')
-    sleep(1)
+    sleep(2)
     
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
@@ -457,7 +457,7 @@ def terminateFeature(requestCount):
     print(f"Number of request: {requestCount}")
     exit()
 
-def recordRequest(stdID, requestDetail):
+# def recordRequest(stdID, requestDetail):
     if stdID not in requests:
         requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
     
@@ -468,7 +468,19 @@ def recordRequest(stdID, requestDetail):
     
     requests[stdID]['dateNow'].append(date)
     requests[stdID]['timeNow'].append(time)
-    
+
+def recordRequest(stdID, request):
+    if stdID not in requests:
+        requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
+    # Add the request type to the student's requestType list
+    requests[stdID]['requestType'].append(request)
+    # Get the current date and time
+    date = datetime.datetime.now().strftime("%d/%m/%Y")  # format: day/month/year
+    time = datetime.datetime.now().strftime("%I:%M %p")  # format: hour:minute AM/PM
+    # Add the current date and time to student's dateNow and timeNow lists
+    requests[stdID]['dateNow'].append(date)
+    requests[stdID]['timeNow'].append(time)
+
 def main():
     
     stdDetails = "studentDetails.csv"
