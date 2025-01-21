@@ -74,9 +74,10 @@ def startFeature():
             print("Invalid choice. Please try again.")
         
     sleep(1)
-    return level, degree
+    return levels, degrees
     
 def menuFeature(stdID, levels, degrees):
+    requestCount = 0
     # Print the menu details
     print("\n\033[1mStudent Transcript Generation System\033[0m")
     print("======================================")
@@ -114,25 +115,22 @@ def menuFeature(stdID, levels, degrees):
     return requestCount
 
 # Details Feature showing students personal information
-def detailsFeature(stdID, stdDetails, levels, degrees):
+def detailsFeature(stdID, levels, degrees):
 
-    valueCheck = False
     sd = loadDetailsFile(stdDetails)
     dataFilter = sd[(sd["stdID"] == int(stdID)) & (
-        sd["Level"].isin(level)) & (sd["Degree"].isin(degree))]
+        sd["Level"].isin(levels)) & (sd["Degree"].isin(degree))]
     if dataFilter.empty:
         print("No data was found with the data you entered.\n")
         return
     levels = dataFilter["Levels"].unique()
     detailDisplay = ""
-    detailDisplay += f"Name: {dataFilter["Name"].iloc[0]}\n" \
-              f"stdID: {dataFilter["stdID"].iloc[0]}\n" \
-              f"Level(s): {", ".join(levels)}\n" \
-              f"Number of terms: {dataFilter["Terms"].sum(0)}\n" \
-              f"College(s): {", ".join(dataFilter["College"].unique().tolist())}\n" \
-              f"Department(s): {", ".join(dataFilter["Department"].unique().tolist())}"
-    
-    valueCheck = True
+    detailDisplay += f"Name: {dataFilter['Name'].iloc[0]}\n" \
+              f"stdID: {dataFilter['stdID'].iloc[0]}\n" \
+              f"Level(s): {', '.join(levels)}\n" \
+              f"Number of terms: {dataFilter['Terms'].sum(0)}\n" \
+              f"College(s): {', '.join(dataFilter['College'].unique().tolist())}\n" \
+              f"Department(s): {', '.join(dataFilter['Department'].unique().tolist())}"
     
     exportInfo = f"std{stdID}details.txt"
     with open(exportInfo, 'w') as info:
@@ -142,7 +140,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
-def statisticsFeature(stdID, stdDetails, levels, degrees):
+def statisticsFeature(stdID, levels, degrees):
     
     valueCheck = False
     sd = loadDetailsFile(stdDetails)
@@ -154,7 +152,7 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
         else:
             levelName = "Graduate"
         for degree in degrees:
-            dataFilter = sd[(sd['Level'] == level) and (sd['Degree'] == degree)]
+            dataFilter = sd[(sd['Level'] == level) & (sd['Degree'] == degree)]
             if dataFilter.empty:
                 continue
             overallAverage = dataFilter['Grade'].mean()
