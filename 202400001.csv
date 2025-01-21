@@ -1,12 +1,12 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,Bachelor,1,f,CMPE001,Major,f,88%
-U,Bachelor,1,f,CMPE002,Major,f,87%
-U,Bachelor,1,f,MATH001,Minor,f,88%
-U,Bachelor,2,f,MATH011,Minor,f,95%
-U,Bachelor,2,f,CMPE011,Major,f,93%
-U,Bachelor,2,f,CMPE012,Major,f,97%
+U,Bachelor,1,Programming,CMPE001,Major,f,88%
+U,Bachelor,1,System Engineering,CMPE002,Major,f,87%
+U,Bachelor,1,Calculus,MATH001,Minor,f,88%
+U,Bachelor,2,Algebra,MATH011,Minor,f,95%
+U,Bachelor,2,Data Structure,CMPE011,Major,f,93%
+U,Bachelor,2,Computer Architecture,CMPE012,Major,f,97%
 U,Bachelor,3,f,CMPE021,Major,f,90%
-U,Bachelor,3,f,MATH021,Minor,f,90%
-U,Bachelor,3,f,CMPE022,Major,f,92%
-U,Bachelor,4,f,MATH031,Minor,f,89%
-U,Bachelor,4,f,CMPE031,Major,f,91%
+U,Bachelor,3,Physics,MATH021,Minor,f,90%
+U,Bachelor,3,Data Analytics,CMPE022,Major,f,92%
+U,Bachelor,4,Engineer Chemistry,MATH031,Minor,f,89%
+U,Bachelor,4,Artificial Intelligence,CMPE031,Major,f,91%
