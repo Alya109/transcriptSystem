@@ -1,13 +1,12 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-U,B1,f,f,f,f,f,f
-,,, ,,,,
+U,B1,1,Computer,f,f,f,f
+U,B1,1,Data Analytics,f,f,f,f
+U,B1,2,Software Engineering,f,f,f,f
+U,B1,2,Computer Architecture,f,f,f,f
+U,B1,2,Cloud Computing,f,f,f,f
+U,B1,2,f,f,f,f,f
+U,B1,3,f,f,f,f,f
+U,B1,3,f,f,f,f,f
+U,B1,4,f,f,f,f,f
+U,B1,4,f,f,f,f,f
+U,B1,4,f,f,f,f,f
