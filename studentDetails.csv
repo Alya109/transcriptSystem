@@ -1,14 +1,14 @@
 Serial,stdID,Name,College,Level,Degree,Major,Minor,Terms
-1,202400001,Nino Nakano,CS,U,Bachelor,placeholder,placeholder,placeholder
-2,202400001,Nino Nakano,CS,G,Doctoral,placeholder,placeholder,placeholder
-3,202400001,Nino Nakano,CS,G,Master's,placeholder,placeholder,placeholder
-,202400002,Yor Forger,CoE,U,Bachelor,placeholder,placeholder,placeholder
-,202400003,Cha Hae-In,CBA,G,Doctoral,placeholder,placeholder,placeholder
-,202400004,Sung Jin-woo,CS,G,Doctoral,placeholder,placeholder,placeholder
-,202400005,Kanade Yoisaki,CoED,U,Bachelor,placeholder,placeholder,placeholder
-,202400006,Hatsune Miku,CPSPA,G,Master's,placeholder,placeholder,placeholder
-,202400007,Anna Yanami,CPSPA,G,Doctoral,placeholder,placeholder,placeholder
-,202400008,Mafuyu Asahina,CoE,U,Bachelor,placeholder,placeholder,placeholder
-,202400008,Mafuyu Asahina,CoE,G,Doctoral,placeholder,placeholder,placeholder
-,202400009,Gusion Paxley,CSSD,U,Bachelor,placeholder,placeholder,placeholder
-,202400010,Kobe Bryant,CBA,G,Masteral,placeholder,placeholder,placeholder
+1,202400001,Nino Nakano,CS,U,Bachelor,placeholder,placeholder,8
+2,202400001,Nino Nakano,CS,G,Doctoral,placeholder,placeholder,4
+3,202400001,Nino Nakano,CS,G,Master's,placeholder,placeholder,6
+4,202400002,Yor Forger,CoE,U,Bachelor,placeholder,placeholder,8
+5,202400003,Cha Hae-In,CBA,G,Doctoral,placeholder,placeholder,4
+6,202400004,Sung Jin-woo,CS,G,Doctoral,placeholder,placeholder,4
+7,202400005,Kanade Yoisaki,CoED,U,Bachelor,placeholder,placeholder,8
+8,202400006,Hatsune Miku,CPSPA,G,Master's,placeholder,placeholder,6
+9,202400007,Anna Yanami,CPSPA,G,Doctoral,placeholder,placeholder,4
+10,202400008,Mafuyu Asahina,CoE,U,Bachelor,placeholder,placeholder,8
+11,202400008,Mafuyu Asahina,CoE,G,Doctoral,placeholder,placeholder,4
+12,202400009,Gusion Paxley,CSSD,U,Bachelor,placeholder,placeholder,8
+13,202400010,Kobe Bryant,CBA,G,Master's,placeholder,placeholder,6
