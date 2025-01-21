@@ -72,22 +72,22 @@ def menuFeature(stdID, stdDetails, requestCount):
     requestCount += 1
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails)
-        recordRequest()
+        recordRequest(stdID, "Student Details")
     elif featureChoice == 2:
         statisticsFeature(stdID, stsDetails)
-        recordRequest()
+        recordRequest(stdID, "Statistics")
     elif featureChoice == 3:
         majorTranscriptFeature(stdID, stdDetails)
-        recordRequest()
+        recordRequest(stdID, "Major Transcript")
     elif featureChoice == 4:
         minorTranscriptFeature(stdID, stdDetails)
-        recordRequest()
+        recordRequest(stdID, "Minor Transcript")
     elif featureChoice == 5:
         fullTranscriptFeature(stdID, stdDetails)
-        recordRequest()
+        recordRequest(stdID, "Full Transcript")
     elif featureChoice == 6:
         previousRequestsFeature(stdID)
-        recordRequest()
+        recordRequest(stdID, "Previous Requests")
     elif featureChoice == 7:
         newStudentFeature(stdDetails)
     elif featureChoice == 8:
@@ -99,10 +99,9 @@ def menuFeature(stdID, stdDetails, requestCount):
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails):
     details = stdDetails.loc[stdDetails["ID"] == stdID]
-    
     detailsStd = f"{stdID}details.txt"
     
-    with open(details, "w") as file:
+    with open(detailsStd, "w") as file:
         for column in details.columns:
             stdRecord = f"{column}: {details.iloc[0][column]}"
             print(stdRecord)
