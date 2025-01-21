@@ -1,22 +1,22 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,BD,1,Programming,CMPE001,Major,3,88%
-U,BD,1,System Engineering,CMPE002,Major,3,87%
-U,BD,1,Calculus,MATH001,Minor,4,88%
-U,BD,2,Algebra,MATH011,Minor,3,95%
-U,BD,2,Data Structure,CMPE011,Major,4,93%
-U,BD,2,Computer Architecture,CMPE012,Major,3,97%
-U,BD,3,Robotics,CMPE021,Major,3,90%
-U,BD,3,Physics,MATH021,Minor,4,90%
-U,BD,3,Data Analytics,CMPE022,Major,3,92%
-U,BD,4,Engineer Chemistry,MATH031,Minor,4,89%
-U,BD,4,Artificial Intelligence,CMPE031,Major,3,91%
-G,D,1,Advanced Machine Learning,CMPE101,Major,4,95%
-G,D,1,Quantum Computing,CMPE102,Major,4,93%
-G,D,2,Advanced Statistics,MATH111,Minor,3,92%
-G,D,2,Computational Neuroscience,CMPE111,Major,4,94%
-G,D,3,Dissertation Research,MATH121,Minor,6,96%
-G,D,3,Advanced Data Analytics,CMPE121,Major,4,97%
-G,M,1,Comp 1 bla bla,CMPE201,Major,3,83%
-G,M,1,Comp 1 bla bla,CMPE201,Major,3,83%
-G,M,2,Comp 1 bla bla,CMPE201,Major,3,83%
-G,M,2,Comp 1 bla bla,CMPE201,Major,3,83%
+U,BD,1,Programming,CMPE001,Major,3,88
+U,BD,1,System Engineering,CMPE002,Major,3,87
+U,BD,1,Calculus,MATH001,Minor,4,88
+U,BD,2,Algebra,MATH011,Minor,3,95
+U,BD,2,Data Structure,CMPE011,Major,4,93
+U,BD,2,Computer Architecture,CMPE012,Major,3,97
+U,BD,3,Robotics,CMPE021,Major,3,90
+U,BD,3,Physics,MATH021,Minor,4,90
+U,BD,3,Data Analytics,CMPE022,Major,3,92
+U,BD,4,Engineer Chemistry,MATH031,Minor,4,89
+U,BD,4,Artificial Intelligence,CMPE031,Major,3,91
+G,D,1,Advanced Machine Learning,CMPE101,Major,4,95
+G,D,1,Quantum Computing,CMPE102,Major,4,93
+G,D,2,Advanced Statistics,MATH111,Minor,3,92
+G,D,2,Computational Neuroscience,CMPE111,Major,4,94
+G,D,3,Dissertation Research,MATH121,Minor,6,96
+G,D,3,Advanced Data Analytics,CMPE121,Major,4,97
+G,M,1,Comp 1 bla bla,CMPE201,Major,3,83
+G,M,1,Comp 1 bla bla,CMPE201,Major,3,88
+G,M,2,Comp 1 bla bla,CMPE201,Major,3,83
+G,M,2,Comp 1 bla bla,CMPE201,Major,3,83
