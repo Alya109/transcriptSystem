@@ -28,6 +28,7 @@ def loadDetailsFile(filename):
     return stdDetails
 
 def studentIDCheck(stdID, stdDetails):
+    stdDetails = loadDetailsFile(stdDetails)
     while stdDetails.loc[stdDetails['stdID'] == int(stdID)].empty:
         print("Invalid ID. Please try again.")
         stdID = input("Enter student ID: ")
@@ -123,7 +124,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     if dataFilter.empty:
         print("No data was found with the data you entered.\n")
         return
-    levels = dataFilter["Levels"].unique()
+    levels = dataFilter["Level"].unique()
     detailDisplay = ""
     detailDisplay += f"Name: {dataFilter['Name'].iloc[0]}\n" \
               f"stdID: {dataFilter['stdID'].iloc[0]}\n" \
@@ -155,7 +156,7 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
             dataFilter = sd[(sd['Level'] == level) & (sd['Degree'] == degree)]
             if dataFilter.empty:
                 continue
-            overallAverage = dataFilter['Grade'].mean()
+            overallAverage = dataFilter['Grades'].mean()
             aveTerm = dataFilter.groupby('Term')['Grade'].mean()
             maxTerm = dataFilter['Grade'].max()
             maxGrades = dataFilter[dataFilter['Grade'] == maxTerm]
@@ -164,7 +165,7 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
             
             statsTitle = f"     {levelName} ({degree}) Level     "
             statsDisplay += "=" * 50 + "\n"
-            statsDisplay += f"{statsTitle.center(50, *'*')}\n"
+            statsDisplay += f"{statTitle.center(50, *'*')}\n"
             statsDisplay += "=" * 50 + "\n"
             statsDisplay += f"Overall average (major and minor) for all terms: {overallAverage:.2f}\n"
             statsDisplay += "Average (major and minor) of each term:\n"
@@ -471,7 +472,7 @@ def recordRequest(stdID, requestDetail):
     
 def main():
     
-    stdDetails = loadDetailsFile("studentDetails.csv")
+    stdDetails = "studentDetails.csv"
     sleep(1)
     
     # Get user input for student level and degree
