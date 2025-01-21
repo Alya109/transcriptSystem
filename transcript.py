@@ -26,14 +26,16 @@ def loadDetailsFile(filename):
     return stdDetails
 
 def studentIDCheck(stdID, stdDetails):
-    while str(stdID).strip() not in stdDetails["stdID"].astype(str).str.strip().values:
+    while stdDetails.loc[stdDetails['stdID'] == int(stdID)].empty:
         print("Invalid ID. Please try again.")
         stdID = input("Enter student ID: ")
     return stdID
     
-
 # Start feature asking for student level and degree
 def startFeature():
+
+    levels = []
+    degrees = []
     print("Select Student Level:")
     print("U - Undergraduate")
     print("G - Graduate")
@@ -42,9 +44,16 @@ def startFeature():
     while True:
         level = input("Enter your choice (U/G/B): ").upper()
         if level in ["U", "G", "B"]:
+            if level == "U":
+                levels.append("U")
+            if level == "G":
+                levels.append("G")
+            if level == "B":
+                levels.append("U")
+                levels.append("G")
             break
         print("Invalid choice. Please try again.")
-    degree = None
+    
     # needs fixing in degree part or just overhaul the input system tbh
     if level in ["G", "B"]:
         print("M - Master")
@@ -53,6 +62,13 @@ def startFeature():
         while True:
             degree = input("Degree level (M/D/B0): ").upper()
             if degree in ["M", "D", "B0"]:
+                if degree == "M":
+                    degrees.append("M")
+                if degree == "D":
+                    degrees.append("D")
+                if degree == "B0":
+                    degrees.append("M")
+                    degrees.append("D")
                 break
             print("Invalid choice. Please try again.")
         
@@ -98,14 +114,27 @@ def menuFeature(stdID, stdDetails, requestCount):
 
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails):
-    details = stdDetails.loc[stdDetails["ID"] == stdID]
-    detailsStd = f"{stdID}details.txt"
-    
-    with open(detailsStd, "w") as file:
-        for column in details.columns:
-            stdRecord = f"{column}: {details.iloc[0][column]}"
-            print(stdRecord)
-            file.write(stdRecord + "\n")
+
+    valueCheck = False
+    sd = loadDetailsFile(stdDetails)
+    dataFilter = sd[(sd["stdID"] == int(stdID)) & (
+        sd["Level"].isin(level)) & (sd["Degree"].isin(degree))]
+    if dataFilter.empty:
+        print("No data found with the data you entered.\n")
+        return
+    levels = dataFilter["Levels"].unique()
+    detailDisplay = ""
+    detailDisplay += f"Name: {dataFilter["Name"].iloc[0]}\n" \
+              f"stdID: {dataFilter["stdID"].iloc[0]}\n" \
+              f"Level(s): {", ".join(levels)}\n" \
+              f"Number of terms: {dataFilter["Terms"].sum(0)}\n" \
+              f"College(s): {", ".join(dataFilter["College"].unique().tolist())}\n" \
+              f"Department(s): {", ".join(dataFilter["Department"].unique().tolist())}"
+    valueCheck = True
+    exportInfo = f"std{stdID}details.txt"
+    with open(exportInfo, 'w') as info:
+        info.write(detailDisplay)
+    print(detailDisplay)
     sleep(2)
     # Haven't tested it yet
     
@@ -224,7 +253,7 @@ def recordRequest(stdID, requestDetails):
     
     # Ewan di ko pa naaayos
     with open("{stdID}previousRequest.txt", "a+") as prevReq:
-        prevReq.write(requestDetails)
+        prevReq.write(f"")
 
 def main():
     
