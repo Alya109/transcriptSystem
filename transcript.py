@@ -44,6 +44,7 @@ def startFeature():
         if level in ["U", "G", "B"]:
             break
         print("Invalid choice. Please try again.")
+    degree = None
     # needs fixing in degree part or just overhaul the input system tbh
     if level in ["G", "B"]:
         print("M - Master")
@@ -71,16 +72,22 @@ def menuFeature(stdID, stdDetails, requestCount):
     requestCount += 1
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails)
+        recordRequest()
     elif featureChoice == 2:
         statisticsFeature(stdID, stsDetails)
+        recordRequest()
     elif featureChoice == 3:
         majorTranscriptFeature(stdID, stdDetails)
+        recordRequest()
     elif featureChoice == 4:
         minorTranscriptFeature(stdID, stdDetails)
+        recordRequest()
     elif featureChoice == 5:
         fullTranscriptFeature(stdID, stdDetails)
+        recordRequest()
     elif featureChoice == 6:
         previousRequestsFeature(stdID)
+        recordRequest()
     elif featureChoice == 7:
         newStudentFeature(stdDetails)
     elif featureChoice == 8:
@@ -192,8 +199,9 @@ def fullTranscriptFeature():
 
 
 # Previous Request shows students recent request
-def previousRequestsFeature():
-    
+def previousRequestsFeature(stdID):
+    with open("{stdID}previousRequest.txt", "r") as request:
+        request.read()
     print("=============================================")
     print("  Request          Date           Time       ")
     print("=============================================")
@@ -212,6 +220,12 @@ def newStudentFeature(stdDetails):
 def terminateFeature():
     print("Terminating the system. Goodbye!")
     exit()
+
+def recordRequest(stdID, requestDetails):
+    
+    # Ewan di ko pa naaayos
+    with open("{stdID}previousRequest.txt", "a+") as prevReq:
+        prevReq.write(requestDetails)
 
 def main():
     
