@@ -1,12 +1,12 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,Bachelor,1,Programming,CMPE001,Major,f,88%
-U,Bachelor,1,System Engineering,CMPE002,Major,f,87%
-U,Bachelor,1,Calculus,MATH001,Minor,f,88%
-U,Bachelor,2,Algebra,MATH011,Minor,f,95%
-U,Bachelor,2,Data Structure,CMPE011,Major,f,93%
-U,Bachelor,2,Computer Architecture,CMPE012,Major,f,97%
-U,Bachelor,3,f,CMPE021,Major,f,90%
-U,Bachelor,3,Physics,MATH021,Minor,f,90%
-U,Bachelor,3,Data Analytics,CMPE022,Major,f,92%
-U,Bachelor,4,Engineer Chemistry,MATH031,Minor,f,89%
-U,Bachelor,4,Artificial Intelligence,CMPE031,Major,f,91%
+U,Bachelor,1,Programming,CMPE001,Major,3,88%
+U,Bachelor,1,System Engineering,CMPE002,Major,3,87%
+U,Bachelor,1,Calculus,MATH001,Minor,4,88%
+U,Bachelor,2,Algebra,MATH011,Minor,3,95%
+U,Bachelor,2,Data Structure,CMPE011,Major,4,93%
+U,Bachelor,2,Computer Architecture,CMPE012,Major,3,97%
+U,Bachelor,3,Robotics,CMPE021,Major,3,90%
+U,Bachelor,3,Physics,MATH021,Minor,4,90%
+U,Bachelor,3,Data Analytics,CMPE022,Major,3,92%
+U,Bachelor,4,Engineer Chemistry,MATH031,Minor,4,89%
+U,Bachelor,4,Artificial Intelligence,CMPE031,Major,3,91%
