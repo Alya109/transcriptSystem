@@ -132,7 +132,7 @@ def statisticsFeature(stdID, stdDetails):
     print("Minimum grade(s) and in which term(s): ")
     print("Do you have any repeated course(s)? ")
 
-# Major Transscript shows students transscript of record based on their major courses
+# Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature():
     details = stdDetails.loc[stdDetails["ID"] == stdID]
     # Visualization purposes for major courses
