@@ -457,18 +457,6 @@ def terminateFeature(requestCount):
     print(f"Number of request: {requestCount}")
     exit()
 
-# def recordRequest(stdID, requestDetail):
-    if stdID not in requests:
-        requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
-    
-    requests[stdID]['requestType'].append(requestDetail)
-    # Get the current date and time
-    date = datetime.datetime.now().strftime("%d/%m/%Y")
-    time = datetime.datetime.now().strftime("%I:%M %p")
-    
-    requests[stdID]['dateNow'].append(date)
-    requests[stdID]['timeNow'].append(time)
-
 def recordRequest(stdID, request):
     if stdID not in requests:
         requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
