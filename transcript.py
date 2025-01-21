@@ -158,9 +158,9 @@ def statisticsFeature(stdID, levels, degrees):
             overallAverage = dataFilter['Grade'].mean()
             aveTerm = dataFilter.groupby('Term')['Grade'].mean()
             maxTerm = dataFilter['Grade'].max()
-            maxGrades = dataFilter[dataFilter['Grade'] == termMax]
+            maxGrades = dataFilter[dataFilter['Grade'] == maxTerm]
             minTerm = dataFilter['Grade'].min()
-            minGrades = dataFilter[dataFilter['Grade'] == termMin]
+            minGrades = dataFilter[dataFilter['Grade'] == minTerm]
             
             statsTitle = f"     {levelName} ({degree}) Level     "
             statsDisplay += "=" * 50 + "\n"
@@ -188,7 +188,7 @@ def statisticsFeature(stdID, levels, degrees):
     sleep(2)
     
 # Major Transcript shows students transscript of record based on their major courses
-def majorTranscriptFeature():
+def majorTranscriptFeature(stdID, levels, degrees):
     # Initialize a boolean variable to track if any data was found
     valueCheck = False
     # Load the student details into data frames
@@ -265,7 +265,7 @@ def majorTranscriptFeature():
         print('No data found with the stdID, level, and degree you entered!\n')
 
 # Minor Transscript shows students transcript of record based on their minor courses
-def minorTranscriptFeature():
+def minorTranscriptFeature(stdID, levels, degrees):
     # Initialize a boolean variable to track if any data was found
     foundData = False
     # Load the student details into data frames
@@ -342,7 +342,7 @@ def minorTranscriptFeature():
 
 
 # Full Transscript shows students transcript of record on both major and minor courses
-def fullTranscriptFeature():
+def fullTranscriptFeature(stdID, levels, degrees):
     # Initialize a boolean variable to track if any data was found
     foundData = False
     # Load the student details into data frames
@@ -453,15 +453,16 @@ def newStudentFeature():
 
 
 # Terminate Feature shows the number of request during the session
-def terminateFeature():
+def terminateFeature(requestCount):
     print("Terminating the system. Goodbye!")
+    print(f"Number of request: {requestCount}"
     exit()
 
 def recordRequest(stdID, requestDetail):
     if stdID not in requests:
         requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
     
-    requests[stdID]['requestType'].append(request)
+    requests[stdID]['requestType'].append(requestDetail)
     # Get the current date and time
     date = datetime.datetime.now().strftime("%d/%m/%Y")
     time = datetime.datetime.now().strftime("%I:%M %p")
