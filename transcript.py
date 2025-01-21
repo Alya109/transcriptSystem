@@ -9,6 +9,7 @@ import datetime
 import pandas as pd
 import os
 
+requests = {}
 # Clears the console output
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -76,8 +77,8 @@ def startFeature():
     sleep(1)
     return levels, degrees
     
-def menuFeature(stdID, levels, degrees):
-    requestCount = 0
+def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
+    
     # Print the menu details
     print("\n\033[1mStudent Transcript Generation System\033[0m")
     print("======================================")
@@ -87,7 +88,6 @@ def menuFeature(stdID, levels, degrees):
     print("======================================")
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
 
-    requestCount += 1
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Student Details")
@@ -112,14 +112,14 @@ def menuFeature(stdID, levels, degrees):
         terminateFeature(requestCount)
     else:
         print("Invalid choice. Please try again.")
-    return requestCount
+    return requestCount + 1
 
 # Details Feature showing students personal information
-def detailsFeature(stdID, levels, degrees):
+def detailsFeature(stdID, stdDetails, levels, degrees):
 
     sd = loadDetailsFile(stdDetails)
     dataFilter = sd[(sd["stdID"] == int(stdID)) & (
-        sd["Level"].isin(levels)) & (sd["Degree"].isin(degree))]
+        sd["Level"].isin(levels)) & (sd["Degree"].isin(degrees))]
     if dataFilter.empty:
         print("No data was found with the data you entered.\n")
         return
@@ -136,11 +136,11 @@ def detailsFeature(stdID, levels, degrees):
     with open(exportInfo, 'w') as info:
         info.write(detailDisplay)
     print(detailDisplay)
-    sleep(2)
+    sleep(1)
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
-def statisticsFeature(stdID, levels, degrees):
+def statisticsFeature(stdID, stdDetails, levels, degrees):
     
     valueCheck = False
     sd = loadDetailsFile(stdDetails)
@@ -183,12 +183,11 @@ def statisticsFeature(stdID, levels, degrees):
                 info.write(statsDisplay)
             print(statsDisplay)
         else:
-        # Prints if no data was found
-        print('No data was found with the data you entered\n')
-    sleep(2)
+        	print('No data was found with the data you entered\n')
+    sleep(1)
     
 # Major Transcript shows students transscript of record based on their major courses
-def majorTranscriptFeature(stdID, levels, degrees):
+def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
     # Initialize a boolean variable to track if any data was found
     valueCheck = False
     # Load the student details into data frames
@@ -265,7 +264,7 @@ def majorTranscriptFeature(stdID, levels, degrees):
         print('No data found with the stdID, level, and degree you entered!\n')
 
 # Minor Transscript shows students transcript of record based on their minor courses
-def minorTranscriptFeature(stdID, levels, degrees):
+def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
     # Initialize a boolean variable to track if any data was found
     foundData = False
     # Load the student details into data frames
@@ -342,7 +341,7 @@ def minorTranscriptFeature(stdID, levels, degrees):
 
 
 # Full Transscript shows students transcript of record on both major and minor courses
-def fullTranscriptFeature(stdID, levels, degrees):
+def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
     # Initialize a boolean variable to track if any data was found
     foundData = False
     # Load the student details into data frames
@@ -455,7 +454,7 @@ def newStudentFeature():
 # Terminate Feature shows the number of request during the session
 def terminateFeature(requestCount):
     print("Terminating the system. Goodbye!")
-    print(f"Number of request: {requestCount}"
+    print(f"Number of request: {requestCount}")
     exit()
 
 def recordRequest(stdID, requestDetail):
@@ -476,7 +475,7 @@ def main():
     sleep(1)
     
     # Get user input for student level and degree
-    level, degree = startFeature()
+    levels, degrees = startFeature()
     
     # Gets studentID and checks if it matches the stdID in the database
     stdID = input("Enter your student ID: ")
@@ -484,4 +483,6 @@ def main():
     
     requestCount = 0
     while True:
-        requestCount = menuFeature(stdID, stdDetails, requestCount)
+        requestCount = menuFeature(stdID, stdDetails, levels, degrees, requestCount)
+        
+main()
