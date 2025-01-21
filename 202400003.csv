@@ -1,13 +1,13 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-,,, ,,,,
+U,B,1,Principles of Management,CBA101,Core,3,A
+U,B,1,Financial Accounting,CBA102,Core,3,B+
+U,B,2,Marketing Fundamentals,CBA103,Core,3,A-
+U,B,2,Business Statistics,CBA104,Core,3,B
+U,B,3,Organizational Behavior,CBA201,Core,3,A
+U,B,3,Managerial Accounting,CBA202,Core,3,B+
+U,B,4,Operations Management,CBA203,Core,3,A-
+U,B,4,Business Law,CBA204,Core,3,B
+U,B,5,Strategic Management,CBA301,Core,3,A
+U,B,5,International Business,CBA302,Core,3,B+
+U,B,6,Entrepreneurship,CBA303,Core,3,A-
+
