@@ -136,7 +136,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     with open(exportInfo, 'w') as info:
         info.write(detailDisplay)
     print(detailDisplay)
-    sleep(2)
+    sleep(1)
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
@@ -184,7 +184,7 @@ def statisticsFeature(stdID, levels, degrees):
             print(statsDisplay)
         else:
         	print('No data was found with the data you entered\n')
-    sleep(2)
+    sleep(1)
     
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
@@ -424,24 +424,28 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
 def previousRequestsFeature(stdID):
     # Create the file name for studentID
     prevReq = f"std{stdID}PreviousRequests.txt"
-        # Open the file in append mode or create it if it doesn't exist
+    
     with open(prevReq, "a+") as pr:
-            # Move the pointer precision to the start of the file
+        # Move the pointer to the start of the file
         pr.seek(0)
-            # Read the first line of the file
-        firstLine = pr.readline()
-            # If the header is not in the first line
-        if 'Request Type' not in firstLine:
-                # Header of the file
+        # Read all the lines in the file
+        lines = pr.readlines()
+        # If the file is empty or the header is not in the first line
+        if not lines or 'Request Type' not in lines[0]:
+            # Write the header to the file
             pr.write("Request Type\t\t Time\t\tDate\n")
+
+        # Move the pointer to the end of the file to append new data
+        pr.seek(0, 2)
+        # Append new requests to the file
         for i in range(len(requests[stdID]['requestType'])):
             pr.write('{:<20} {:<10} {:<10}\n'.format(
                 requests[stdID]['requestType'][i], requests[stdID]['timeNow'][i], requests[stdID]['dateNow'][i]))
+
     print(f"Previous requests for {stdID}:")
-    with open(prevReq) as pr:
-        lines = pr.readlines()
-        for line in lines:
-            print(line.strip(), end='\n')
+    with open(prevReq, "r") as pr:
+        for line in pr:
+            print(line.strip())
 
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
@@ -468,6 +472,7 @@ def recordRequest(stdID, request):
     # Add the current date and time to student's dateNow and timeNow lists
     requests[stdID]['dateNow'].append(date)
     requests[stdID]['timeNow'].append(time)
+
 
 def main():
     
