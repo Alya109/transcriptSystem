@@ -49,6 +49,7 @@ def startFeature():
         if level in ["U", "G", "B"]:
             if level == "U":
                 levels.append("U")
+                degrees.append("BD")
             if level == "G":
                 levels.append("G")
             if level == "B":
