@@ -164,7 +164,7 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
             
             statsTitle = f"     {levelName} ({degree}) Level     "
             statsDisplay += "=" * 50 + "\n"
-            statsDisplay += f"{statTitle.center(50, *'*')}\n"
+            statsDisplay += f"{statsTitle.center(50, *'*')}\n"
             statsDisplay += "=" * 50 + "\n"
             statsDisplay += f"Overall average (major and minor) for all terms: {overallAverage:.2f}\n"
             statsDisplay += "Average (major and minor) of each term:\n"
