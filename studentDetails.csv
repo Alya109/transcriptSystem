@@ -1,4 +1,4 @@
-Serial,stdID,Name,College,Deparment,Level,Degree,Major,Minor,Terms
+Serial,stdID,Name,College,Department,Level,Degree,Major,Minor,Terms
 1,202400001,Nino Nakano,PUP,CS,U,B,placeholder,placeholder,4
 2,202400001,Nino Nakano,PUP,CS,G,D,placeholder,placeholder,3
 3,202400001,Nino Nakano,PUP,CS,G,M,placeholder,placeholder,2
