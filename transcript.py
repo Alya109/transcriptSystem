@@ -5,6 +5,7 @@
 # Rivera, Robert Aron, 2024-04019-MN-0, {contribution}
 
 import time
+import datetime
 import pandas as pd
 import os
 
@@ -142,6 +143,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, stdDetails, levels, degrees):
+    
     valueCheck = False
     sd = loadDetailsFile(stdDetails)
     statsDisplay = ""
@@ -189,8 +191,8 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
     
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature():
-    details = stdDetails.loc[stdDetails["ID"] == stdID]
-    # Visualization purposes for major courses
+    
+    # Visualization purposes for major course transcript
     print("Name:                 stdID:                 ")
     print("College:              Department:            ")
     print("Major:                Minor:                 ")
@@ -208,8 +210,8 @@ def majorTranscriptFeature():
 
 # Minor Transscript shows students transcript of record based on their minor courses
 def minorTranscriptFeature():
-    details = stdDetails.loc[stdDetails["ID"] == stdID]
-    # Visualization purposes for minor courses
+    
+    # Visualization purposes for minor course transcript
     print("Name:                 stdID:                 ")
     print("College:              Department:            ")
     print("Major:                Minor:                 ")
@@ -246,15 +248,30 @@ def fullTranscriptFeature():
     print("=============================================")
 
 
+
+
 # Previous Request shows students recent request
 def previousRequestsFeature(stdID):
-    with open("{stdID}previousRequest.txt", "r") as request:
-        request.read()
-    print("=============================================")
-    print("  Request          Date           Time       ")
-    print("=============================================")
-    print("  Major          22/09/2020      13:30:09    ")
-    print("  Full           12/02/2021      14:40:03    ")
+    # Create the file name for studentID
+    prevReq = f"std{stdID}PreviousRequests.txt"
+        # Open the file in append mode or create it if it doesn't exist
+    with open(prevReq, "a+") as pr:
+            # Move the pointer precision to the start of the file
+        pr.seek(0)
+            # Read the first line of the file
+        firstLine = pr.readline()
+            # If the header is not in the first line
+        if 'Request Type' not in firstLine:
+                # Header of the file
+            pr.write("Request Type\t\t Time\t\tDate\n")
+        for i in range(len(requests[stdID]['requestType'])):
+            pr.write('{:<20} {:<10} {:<10}\n'.format(
+                requests[stdID]['requestType'][i], requests[stdID]['timeNow'][i], requests[stdID]['dateNow'][i]))
+    print(f"Previous requests for {stdID}:")
+    with open(prevReq) as pr:
+        lines = pr.readlines()
+        for line in lines:
+            print(line.strip(), end='\n')
 
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
@@ -269,12 +286,18 @@ def terminateFeature():
     print("Terminating the system. Goodbye!")
     exit()
 
-def recordRequest(stdID, requestDetails):
+def recordRequest(stdID, requestDetail):
+    if stdID not in requests:
+        requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
     
-    # Ewan di ko pa naaayos
-    with open("{stdID}previousRequest.txt", "a+") as prevReq:
-        prevReq.write(f"")
-
+    requests[stdID]['requestType'].append(request)
+    # Get the current date and time
+    date = datetime.datetime.now().strftime("%d/%m/%Y")
+    time = datetime.datetime.now().strftime("%I:%M %p")
+    
+    requests[stdID]['dateNow'].append(date)
+    requests[stdID]['timeNow'].append(time)
+    
 def main():
     
     stdDetails = loadDetailsFile("studentDetails.csv")
@@ -290,5 +313,3 @@ def main():
     requestCount = 0
     while True:
         requestCount = menuFeature(stdID, stdDetails, requestCount)
-
-
