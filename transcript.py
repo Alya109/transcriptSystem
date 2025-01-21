@@ -40,7 +40,7 @@ def startFeature():
     print("U - Undergraduate")
     print("G - Graduate")
     print("B - Both")
-    # Loop for input
+    # Loop for input in-case the level inputted isn't in the choices
     while True:
         level = input("Enter your choice (U/G/B): ").upper()
         if level in ["U", "G", "B"]:
@@ -54,7 +54,7 @@ def startFeature():
             break
         print("Invalid choice. Please try again.")
     
-    # needs fixing in degree part or just overhaul the input system tbh
+    # Degree input loop
     if level in ["G", "B"]:
         print("M - Master")
         print("D - Doctorate")
@@ -75,7 +75,7 @@ def startFeature():
     sleep(1)
     return level, degree
     
-def menuFeature(stdID, stdDetails, requestCount):
+def menuFeature(stdID, levels, degrees):
     # Print the menu details
     print("\n\033[1mStudent Transcript Generation System\033[0m")
     print("======================================")
@@ -87,25 +87,25 @@ def menuFeature(stdID, stdDetails, requestCount):
 
     requestCount += 1
     if featureChoice == 1:
-        detailsFeature(stdID, stdDetails)
+        detailsFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Student Details")
     elif featureChoice == 2:
-        statisticsFeature(stdID, stsDetails)
+        statisticsFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Statistics")
     elif featureChoice == 3:
-        majorTranscriptFeature(stdID, stdDetails)
+        majorTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Major Transcript")
     elif featureChoice == 4:
-        minorTranscriptFeature(stdID, stdDetails)
+        minorTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Minor Transcript")
     elif featureChoice == 5:
-        fullTranscriptFeature(stdID, stdDetails)
+        fullTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Full Transcript")
     elif featureChoice == 6:
         previousRequestsFeature(stdID)
         recordRequest(stdID, "Previous Requests")
     elif featureChoice == 7:
-        newStudentFeature(stdDetails)
+        newStudentFeature()
     elif featureChoice == 8:
         terminateFeature(requestCount)
     else:
@@ -113,14 +113,14 @@ def menuFeature(stdID, stdDetails, requestCount):
     return requestCount
 
 # Details Feature showing students personal information
-def detailsFeature(stdID, stdDetails):
+def detailsFeature(stdID, stdDetails, levels, degrees):
 
     valueCheck = False
     sd = loadDetailsFile(stdDetails)
     dataFilter = sd[(sd["stdID"] == int(stdID)) & (
         sd["Level"].isin(level)) & (sd["Degree"].isin(degree))]
     if dataFilter.empty:
-        print("No data found with the data you entered.\n")
+        print("No data was found with the data you entered.\n")
         return
     levels = dataFilter["Levels"].unique()
     detailDisplay = ""
@@ -130,7 +130,9 @@ def detailsFeature(stdID, stdDetails):
               f"Number of terms: {dataFilter["Terms"].sum(0)}\n" \
               f"College(s): {", ".join(dataFilter["College"].unique().tolist())}\n" \
               f"Department(s): {", ".join(dataFilter["Department"].unique().tolist())}"
+    
     valueCheck = True
+    
     exportInfo = f"std{stdID}details.txt"
     with open(exportInfo, 'w') as info:
         info.write(detailDisplay)
@@ -139,34 +141,52 @@ def detailsFeature(stdID, stdDetails):
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
-def statisticsFeature(stdID, stdDetails):
-    courseData = stdDetails.loc[stdDetails["ID"] == stdID]
-    # For visual purposes
-    # Undergraduate level
-    print("===============================")
-    print("****** {levels} Level ******")
-    print("===============================")
-    print("Overall average (major and minor) for all terms: ")
-    print("Average (major and minor) for each term: ")
-    print("      Term 1: ")
-    print("      Term 2: ")
-    print("      Term 3: ")
-    print("Maximum grade(s) and in which term(s): ")
-    print("Minimum grade(s) and in which term(s): ")
-    print("Do you have any repeated course(s)? ")
-    # Graduate Level
-    print("===============================")
-    print("****** Graduate(M) Level ******")
-    print("===============================")
-    print("Overall average (major and minor) for all terms: ")
-    print("Average (major and minor) for each term: ")
-    print("      Term 1: ")
-    print("      Term 2: ")
-    print("      Term 3: ")
-    print("Maximum grade(s) and in which term(s): ")
-    print("Minimum grade(s) and in which term(s): ")
-    print("Do you have any repeated course(s)? ")
-
+def statisticsFeature(stdID, stdDetails, levels, degrees):
+    valueCheck = False
+    sd = loadDetailsFile(stdDetails)
+    statsDisplay = ""
+    
+    for level in levels:
+        if level == "U":
+            levelName = "Undergraduate"
+        else:
+            levelName = "Graduate"
+        for degree in degrees:
+            dataFilter = sd[(sd['Level'] == level) and (sd['Degree'] == degree)]
+            if dataFilter.empty:
+                continue
+            overallAverage = dataFilter['Grade'].mean()
+            aveTerm = dataFilter.groupby('Term')['Grade'].mean()
+            maxTerm = dataFilter['Grade'].max()
+            maxGrades = dataFilter[dataFilter['Grade'] == termMax]
+            minTerm = dataFilter['Grade'].min()
+            minGrades = dataFilter[dataFilter['Grade'] == termMin]
+            
+            statsTitle = f"     {levelName} ({degree}) Level     "
+            statsDisplay += "=" * 50 + "\n"
+            statsDisplay += f"{statTitle.center(50, *'*')}\n"
+            statsDisplay += "=" * 50 + "\n"
+            statsDisplay += f"Overall average (major and minor) for all terms: {overallAverage:.2f}\n"
+            statsDisplay += "Average (major and minor) of each term:\n"
+            for term, avg in aveTerm.items():
+                statsDisplay += f"\tTerm {term}: {avg:.2f}\n"
+            statsDisplay += "Maximum grade(s) and in which term(s):\n"
+            for _, row in maxGrades.iterrows():
+                statsDisplay += f"\tTerm {row['Term']}: {row['Grade']}\n"
+            statsDisplay += "Minimum grade(s) and in which term(s):\n"
+            for _, row in minGrades.iterrows():
+                statsDisplay += f"\tTerm {row['Term']}: {row['Grade']}\n"
+            valueCheck = True
+        if valueCheck:
+            exportInfo = f"std{stdID}statistics.txt"
+            with open(exportInfo, 'w') as info:
+                info.write(statsDisplay)
+            print(statsDisplay)
+        else:
+        # Prints if no data was found
+        print('No data was found with the data you entered\n')
+    sleep(2)
+    
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature():
     details = stdDetails.loc[stdDetails["ID"] == stdID]
@@ -237,11 +257,11 @@ def previousRequestsFeature(stdID):
     print("  Full           12/02/2021      14:40:03    ")
 
 # New Student Feature allows another student after clearing all previous data
-def newStudentFeature(stdDetails):
+def newStudentFeature():
     print("Clearing cache...")
     cls()
     sleep(1)
-    startFeature()
+    main()
 
 
 # Terminate Feature shows the number of request during the session
