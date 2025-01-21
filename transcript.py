@@ -1,5 +1,5 @@
 # This work done by group ##:
-# Araja, Prince Jeoff, {2024-04758-MN-0}, {contribution}
+# Araja, Prince Jeoff, 2024-04758-MN-0, {contribution}
 # Lumabi, Earl Vanesse, 2024-04985-MN-0, {contribution}
 # Modesto, Isaiah, 2024-16637-MN-0, {contribution}
 # Rivera, Robert Aron, 2024-04019-MN-0, {contribution}
