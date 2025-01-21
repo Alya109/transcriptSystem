@@ -52,8 +52,7 @@ def startFeature():
             if level == "G":
                 levels.append("G")
             if level == "B":
-                levels.append("U")
-                levels.append("G")
+                levels.extend(['U', 'G'])
             break
         print("Invalid choice. Please try again.")
     
@@ -93,7 +92,7 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
         detailsFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Student Details")
     elif featureChoice == 2:
-        statisticsFeature(stdID, stdDetails, levels, degrees)
+        statisticsFeature(stdID, levels, degrees)
         recordRequest(stdID, "Statistics")
     elif featureChoice == 3:
         majorTranscriptFeature(stdID, stdDetails, levels, degrees)
@@ -141,10 +140,10 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     # Haven't tested it yet
     
 # Statistics Feature shows student's records
-def statisticsFeature(stdID, stdDetails, levels, degrees):
+def statisticsFeature(stdID, levels, degrees):
     
     valueCheck = False
-    sd = loadDetailsFile(stdDetails)
+    sd = loadDetailsFile(f"{stdID}.csv")
     statsDisplay = ""
     
     for level in levels:
@@ -156,7 +155,7 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
             dataFilter = sd[(sd['Level'] == level) & (sd['Degree'] == degree)]
             if dataFilter.empty:
                 continue
-            overallAverage = dataFilter['Grades'].mean()
+            overallAverage = dataFilter['Grade'].mean()
             aveTerm = dataFilter.groupby('Term')['Grade'].mean()
             maxTerm = dataFilter['Grade'].max()
             maxGrades = dataFilter[dataFilter['Grade'] == maxTerm]
@@ -165,7 +164,7 @@ def statisticsFeature(stdID, stdDetails, levels, degrees):
             
             statsTitle = f"     {levelName} ({degree}) Level     "
             statsDisplay += "=" * 50 + "\n"
-            statsDisplay += f"{statTitle.center(50, *'*')}\n"
+            statsDisplay += f"{statsTitle.center(50, *'*')}\n"
             statsDisplay += "=" * 50 + "\n"
             statsDisplay += f"Overall average (major and minor) for all terms: {overallAverage:.2f}\n"
             statsDisplay += "Average (major and minor) of each term:\n"
