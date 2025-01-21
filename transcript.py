@@ -203,8 +203,9 @@ def previousRequestsFeature():
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature(stdDetails):
     print("Clearing cache...")
+    cls()
     sleep(1)
-    main()
+    startFeature()
 
 
 # Terminate Feature shows the number of request during the session
