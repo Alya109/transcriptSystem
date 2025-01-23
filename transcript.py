@@ -117,7 +117,7 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
-
+    
     sd = loadDetailsFile(stdDetails)
     dataFilter = sd[(sd["stdID"] == int(stdID)) & (
         sd["Level"].isin(levels)) & (sd["Degree"].isin(degrees))]
@@ -125,6 +125,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
         print("No data was found with the data you entered.\n")
         return
     levels = dataFilter["Level"].unique()
+    
     detailDisplay = ""
     detailDisplay += f"Name: {dataFilter['Name'].iloc[0]}\n" \
               f"stdID: {dataFilter['stdID'].iloc[0]}\n" \
@@ -211,13 +212,13 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
             mDisplay += border
             mDisplay += f"{footer.center(60, *'*')}\n"
             mDisplay += f"{border}\n"
-            mDisplay += f"Name: {dataFilter['Name'].iloc[0]}\t\t\t\t\t\t"
+            mDisplay += f"Name: {dataFilter['Name'].iloc[0]}\t\t\t"
             mDisplay += f"stdID: {dataFilter['stdID'].iloc[0]}\n"
-            mDisplay += f"College: {dataFilter['College'].iloc[0]}\t\t\t\t\t\t\t"
+            mDisplay += f"College: {dataFilter['College'].iloc[0]}\t\t\t\t"
             mDisplay += f"Department: {dataFilter['Department'].iloc[0]}\n"
-            mDisplay += f"Major: {dataFilter['Major'].iloc[0]}\t\t\t\t\t\t"
+            mDisplay += f"Major: {dataFilter['Major'].iloc[0]}\t\t\t"
             mDisplay += f"Minor: {dataFilter['Minor'].iloc[0]}\n"
-            mDisplay += f"Level: {dataFilter['Level'].iloc[0]}\t\t\t\t\t\t\t\t"
+            mDisplay += f"Level: {dataFilter['Level'].iloc[0]}\t\t\t\t"
             mDisplay += f"Number of terms: {dataFilter['Terms'].sum()}\n\n"
             # Filter the DataFrame to only include data for the selected student level and degree
             stdDataFilter = std[(std['Level'] == level) & (
@@ -242,8 +243,13 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
                 for row in majorDataFilter.itertuples(index=False):
                     mDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
+                    
+                majorAve = majorDataFilter['Grade'].mean()
+                overallAve = termDataFilter['Grade'].mean()
+                
+                
                 mDisplay += "\n\n"
-                mDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t\t"
+                mDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t"
                 mDisplay += f"Overall Average: {termDataFilter['Grade'].mean():.2f}\n\n"
             footer = f"     End of Transcript for Level ({level} - {degree})     "
             mDisplay += border
@@ -424,6 +430,7 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
 # Previous Request shows students recent request
 def previousRequestsFeature(stdID):
     # Create the file name for studentID
+    
     prevReq = f"std{stdID}PreviousRequests.txt"
     
     with open(prevReq, "a+") as pr:
@@ -492,3 +499,4 @@ def main():
         requestCount = menuFeature(stdID, stdDetails, levels, degrees, requestCount)
         
 main()
+
