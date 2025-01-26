@@ -26,19 +26,17 @@ def loadDetailsFile(filename):
     stdDetails = np.loadtxt(filename, delimiter=",", dtype=str, skiprows=1)
     return stdDetails
 
-""" for numpy
 def studentIDCheck(stdID, stdDetails):
-    stdDetails = loadDetailsFile(stdDetails)
-    while stdDetails.loc[stdDetails['stdID'] == int(stdID)].empty:
+    data = loadDetailsFile(stdDetails)
+    while not any(data[:, 1] == stdID):
         print("Invalid ID. Please try again.")
-        stdID = input("Enter student ID: ")
+        stdID = input("Enter student ID: ").strip()
     return stdID
-"""    
+
 # Start feature asking for student level and degree
 def startFeature():
 
-    levels = []
-    degrees = []
+    levels, degrees = [], []
     print("=" * 40)
     print("Select Student Level:")
     print("U - Undergraduate")
@@ -472,8 +470,8 @@ def newStudentFeature():
 
 # Terminate Feature shows the number of request during the session
 def terminateFeature(requestCount):
-    print("Terminating the system. Goodbye!")
     print(f"Number of request: {requestCount}")
+    print("Terminating the system. Goodbye!")
     exit()
 
 def recordRequest(stdID, request):
@@ -492,17 +490,16 @@ def recordRequest(stdID, request):
 def main():
     
     stdDetails = "studentDetails.csv"
-    sleep(1)
-    
     # Get user input for student level and degree
     levels, degrees = startFeature()
     
     # Gets studentID and checks if it matches the stdID in the database
-    stdID = input("Enter your student ID: ")
+    stdID = input("Enter your student ID: ").strip()
     stdID = studentIDCheck(stdID, stdDetails)
     
     requestCount = 0
     while True:
         requestCount = menuFeature(stdID, stdDetails, levels, degrees, requestCount)
         
-main()
+if __name__ == "__main__":
+    main()
