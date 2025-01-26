@@ -121,29 +121,21 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
-    
-    sd = loadDetailsFile(stdDetails)
-    dataFilter = sd[(sd["stdID"] == int(stdID)) & (
-        sd["Level"].isin(levels)) & (sd["Degree"].isin(degrees))]
-    if dataFilter.empty:
-        print("No data was found with the data you entered.\n")
-        return
-    levels = dataFilter["Level"].unique()
-
-    detailDisplay = ""
-    detailDisplay += f"Name: {dataFilter['Name'].iloc[0]}\n" \
-              f"stdID: {dataFilter['stdID'].iloc[0]}\n" \
-              f"Level(s): {', '.join(levels)}\n" \
-              f"Number of terms: {dataFilter['Terms'].sum(0)}\n" \
-              f"College(s): {', '.join(dataFilter['College'].unique().tolist())}\n" \
-              f"Department(s): {', '.join(dataFilter['Department'].unique().tolist())}"
-    
+    data = loadDetailsFile(stdDetails)
+    filteredData = data[data[:, 1] == stdID]
+   
+    detailDisplay = (
+        f"Name: {filteredData[0][2]}\n"
+        f"stdID: {filteredData[0][1]}\n"
+        f"Level(s): {', '.join(levels)}\n"
+        f"College(s): {filteredData[0][3]}\n"
+        f"Department(s): {filteredData[0][4]}"
+    )
     exportInfo = f"std{stdID}details.txt"
-    with open(exportInfo, 'w') as info:
-        info.write(detailDisplay)
+    with open(exportInfo, "w") as file:
+        file.write(detailDisplay)
     print(detailDisplay)
     sleep(1)
-    # Haven't tested it yet
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
