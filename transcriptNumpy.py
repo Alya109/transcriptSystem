@@ -6,10 +6,9 @@
 
 import time
 import datetime
-import pandas as pd
+import numpy as np
 import os
 
-requests = {}
 # Clears the console output
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -24,7 +23,7 @@ def sleep(mode):
         time.sleep(4)
 
 def loadDetailsFile(filename):
-    stdDetails = pd.read_csv(filename)
+    stdDetails = np.loadtxt(filename, delimiter=",", dtype=str, skiprows=1)
     return stdDetails
 
 def studentIDCheck(stdID, stdDetails):
@@ -39,13 +38,15 @@ def startFeature():
 
     levels = []
     degrees = []
+    print("=" * 25)
     print("Select Student Level:")
     print("U - Undergraduate")
     print("G - Graduate")
     print("B - Both")
+    print("=" * 25)
     # Loop for input in-case the level inputted isn't in the choices
     while True:
-        level = input("Enter your choice (U/G/B): ").upper()
+        level = input("Enter your choice (U/G/B): ").upper().strip()
         if level in ["U", "G", "B"]:
             if level == "U":
                 levels.append("U")
@@ -53,23 +54,27 @@ def startFeature():
             if level == "G":
                 levels.append("G")
             if level == "B":
-                levels.extend(['U', 'G'])
+                levels.append("U")
+                levels.append("G")
             break
         print("Invalid choice. Please try again.")
     
     # Degree input loop
     if level in ["G", "B"]:
+        print("=" * 25)
         print("M - Master")
         print("D - Doctorate")
         print("B0 - Both")
+        print("=" * 25)
         while True:
-            degree = input("Degree level (M/D/B0): ").upper()
+            degree = input("Degree level (M/D/B0): ").upper().strip()
             if degree in ["M", "D", "B0"]:
                 if degree == "M":
                     degrees.append("M")
                 if degree == "D":
                     degrees.append("D")
                 if degree == "B0":
+                    degrees.append("BD")
                     degrees.append("M")
                     degrees.append("D")
                 break
