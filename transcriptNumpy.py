@@ -26,24 +26,25 @@ def loadDetailsFile(filename):
     stdDetails = np.loadtxt(filename, delimiter=",", dtype=str, skiprows=1)
     return stdDetails
 
+""" for numpy
 def studentIDCheck(stdID, stdDetails):
     stdDetails = loadDetailsFile(stdDetails)
     while stdDetails.loc[stdDetails['stdID'] == int(stdID)].empty:
         print("Invalid ID. Please try again.")
         stdID = input("Enter student ID: ")
     return stdID
-    
+"""    
 # Start feature asking for student level and degree
 def startFeature():
 
     levels = []
     degrees = []
-    print("=" * 25)
+    print("=" * 40)
     print("Select Student Level:")
     print("U - Undergraduate")
     print("G - Graduate")
     print("B - Both")
-    print("=" * 25)
+    print("=" * 40)
     # Loop for input in-case the level inputted isn't in the choices
     while True:
         level = input("Enter your choice (U/G/B): ").upper().strip()
@@ -55,17 +56,18 @@ def startFeature():
                 levels.append("G")
             if level == "B":
                 levels.append("U")
+                degrees.append("BD")
                 levels.append("G")
             break
         print("Invalid choice. Please try again.")
     
     # Degree input loop
     if level in ["G", "B"]:
-        print("=" * 25)
+        print("=" * 40)
         print("M - Master")
         print("D - Doctorate")
         print("B0 - Both")
-        print("=" * 25)
+        print("=" * 40)
         while True:
             degree = input("Degree level (M/D/B0): ").upper().strip()
             if degree in ["M", "D", "B0"]:
@@ -74,7 +76,6 @@ def startFeature():
                 if degree == "D":
                     degrees.append("D")
                 if degree == "B0":
-                    degrees.append("BD")
                     degrees.append("M")
                     degrees.append("D")
                 break
@@ -87,11 +88,11 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
     
     # Print the menu details
     print("\n\033[1mStudent Transcript Generation System\033[0m")
-    print("======================================")
+    print("=" * 40)
     print("1. Student Details\n2. Statistics\n3. Transcript based on major courses")
     print("4. Transcript based on minor courses\n5. Full Transcript\n6. Previous transcript request")
     print("7. Select another student\n8. Terminate the system")
-    print("======================================")
+    print("=" * 40)
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
 
     if featureChoice == 1:
@@ -130,7 +131,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
         print("No data was found with the data you entered.\n")
         return
     levels = dataFilter["Level"].unique()
-    
+
     detailDisplay = ""
     detailDisplay += f"Name: {dataFilter['Name'].iloc[0]}\n" \
               f"stdID: {dataFilter['stdID'].iloc[0]}\n" \
@@ -175,6 +176,7 @@ def statisticsFeature(stdID, levels, degrees):
             statsDisplay += "=" * 50 + "\n"
             statsDisplay += f"Overall average (major and minor) for all terms: {overallAverage:.2f}\n"
             statsDisplay += "Average (major and minor) of each term:\n"
+            
             for term, avg in aveTerm.items():
                 statsDisplay += f"\tTerm {term}: {avg:.2f}\n"
             statsDisplay += "Maximum grade(s) and in which term(s):\n"
