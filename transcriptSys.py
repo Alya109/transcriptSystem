@@ -6,9 +6,14 @@
 
 import time
 import datetime
-import numpy as np
+import pandas as pd
 import os
 
+"""
+======================
+   System Functions
+======================
+"""
 # Clears the console output
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -23,12 +28,12 @@ def sleep(mode):
         time.sleep(4)
 
 def loadDetailsFile(filename):
-    stdDetails = np.loadtxt(filename, delimiter=",", dtype=str, skiprows=1)
+    stdDetails = pd.read_csv(filename)
     return stdDetails
-
+    
 def studentIDCheck(stdID, stdDetails):
     data = loadDetailsFile(stdDetails)
-    while not any(data[:, 1] == stdID):
+    while not any(data["stdID"] == stdID):
         print("Invalid ID. Please try again.")
         stdID = input("Enter student ID: ").strip()
     return stdID
@@ -85,12 +90,19 @@ def startFeature():
 def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
     
     # Print the menu details
-    print("\n\033[1mStudent Transcript Generation System\033[0m")
-    print("=" * 40)
-    print("1. Student Details\n2. Statistics\n3. Transcript based on major courses")
-    print("4. Transcript based on minor courses\n5. Full Transcript\n6. Previous transcript request")
-    print("7. Select another student\n8. Terminate the system")
-    print("=" * 40)
+    print(
+        "\n\033[1mStudent Transcript Generation System\033[0m\n"
+        + "=" * 40 + "\n"
+        + "1. Student Details\n"
+        + "2. Statistics\n"
+        + "3. Transcript based on major courses\n"
+        + "4. Transcript based on minor courses\n"
+        + "5. Full Transcript\n"
+        + "6. Previous transcript request\n"
+        + "7. Select another student\n"
+        + "8. Terminate the system\n"
+        + "=" * 40 + "\n"
+    )
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
 
     if featureChoice == 1:
@@ -121,7 +133,7 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
-    data = loadDetailsFile(stdDetails)
+    data = stdDetails
     filteredData = data[data[:, 1] == stdID]
    
     detailDisplay = (
@@ -480,8 +492,10 @@ def recordRequest(stdID, request):
 
 
 def main():
+    # Loads the csv file as a dataframe
+    stdDetailsFile = "studentDetails.csv"
+    stdDetails = loadDetailsFile(stdDetailsFile)
     
-    stdDetails = "studentDetails.csv"
     # Get user input for student level and degree
     levels, degrees = startFeature()
     
@@ -492,6 +506,6 @@ def main():
     requestCount = 0
     while True:
         requestCount = menuFeature(stdID, stdDetails, levels, degrees, requestCount)
-        
+
 if __name__ == "__main__":
     main()
