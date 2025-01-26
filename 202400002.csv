@@ -1,9 +1,9 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,BD,1,Computer,CMPE001,Major,f,90
+U,BD,1,Computer,PROG001,Major,f,90
 U,BD,1,Data Analytics,DATA001,Minor,f,88
-U,BD,2,Software Engineering,f,Major,f,87
-U,BD,2,Computer Architecture,f,Major,f,92
-U,BD,2,Cloud Computing,f,Major,f,87
+U,BD,2,Software Engineering,PROG011,Major,f,87
+U,BD,2,Computer Architecture,PROG012,Major,f,92
+U,BD,2,Cloud Computing,PROG013,Major,f,87
 U,BD,2,Physics,f,Minor,f,88
 U,BD,3,Programming,f,Major,f,89
 U,BD,3,Algorithms,f,Minor,f,95
