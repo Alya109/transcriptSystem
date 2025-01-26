@@ -1,6 +1,6 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
 U,BD,1,Computer,f,Major,f,90
-U,BD,1,Data Analytics,Minor,f,f,88
+U,BD,1,Data Analytics,MATH001,Minor,f,88
 U,BD,2,Software Engineering,f,Major,f,87
 U,BD,2,Computer Architecture,f,Major,f,92
 U,BD,2,Cloud Computing,f,Major,f,87
