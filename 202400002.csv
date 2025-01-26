@@ -4,8 +4,8 @@ U,BD,1,Data Analytics,DATA001,Minor,f,88
 U,BD,2,Software Engineering,PROG011,Major,f,87
 U,BD,2,Computer Architecture,PROG012,Major,f,92
 U,BD,2,Cloud Computing,PROG013,Major,f,87
-U,BD,2,Physics,f,Minor,f,88
-U,BD,3,Programming,f,Major,f,89
+U,BD,2,Physics,MATH011,Minor,f,88
+U,BD,3,Programming,CMPE001,Major,f,89
 U,BD,3,Algorithms,f,Minor,f,95
 U,BD,4,Data Management,f,Major,f,95
 U,BD,4,Assembly Code,f,Major,f,89
