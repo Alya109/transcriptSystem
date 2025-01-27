@@ -1,13 +1,12 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-f,f,f,f,f,f,f,f
-,,, ,,,,
+U,BD,1,Computer,PROG001,Major,3,87
+U,BD,1,Data Analytics,DATA001,Minor,2,90
+U,BD,2,Software Engineering,PROG011,Major,3,85
+U,BD,2,Computer Architecture,PROG012,Major,3,96
+U,BD,2,Cloud Computing,PROG013,Major,3,89
+U,BD,2,Physics,MATH011,Minor,2,82
+U,BD,3,Programming,CMPE001,Major,4,86
+U,BD,3,Algorithms,CMPE002,Minor,3,94
+U,BD,4,Data Management,PROG031,Major,3,93
+U,BD,4,Assembly Code,PROG032,Major,3,91
+U,BD,4,Digital Electonics,DATA031,Minor,3,90
