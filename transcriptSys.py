@@ -390,7 +390,7 @@ def newStudentFeature():
     print("Clearing cache...")
     cls()
     # sleep(1)
-    # main()
+    main()
 
 
 # Terminate Feature shows the number of request during the session
