@@ -1,6 +1,6 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
 U,BD,1,Programming,CMPE001,Major,3,88
-U,BD,1,System Engineering,CMPE002,Major,3,87
+U,BD,1,System Engr.,CMPE002,Major,3,87
 U,BD,1,Calculus,MATH001,Minor,4,88
 U,BD,2,Algebra,MATH011,Minor,3,95
 U,BD,2,Data Structure,CMPE011,Major,4,93
