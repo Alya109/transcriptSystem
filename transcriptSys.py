@@ -28,8 +28,11 @@ def sleep(mode):
         time.sleep(4)
 
 def loadDetailsFile(filename):
-    stdDetails = pd.read_csv(filename)
-    return stdDetails
+    try:
+        return pd.read_csv(filename)
+    except FileNotFoundError:
+        print(f"Error: File {filename} not found.")
+        exit()
     
 def studentIDCheck(stdID, stdDetails):
     while str(stdID) not in stdDetails['stdID'].astype(str).values:
@@ -247,7 +250,7 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
                     majorDisplay += "{:<20} {:<20} {:<20} {:<20}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
                 
-                majorAve = majorDataFilter['Grade'].mean()
+                majorAve = majorDataFilter['Grade'].mean() if not majorDataFilter.empty else 0.0
                 overallAve = termDataFilter['Grade'].mean()
                 
                 majorDisplay += "\n\n"
@@ -307,7 +310,7 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
                     minorDisplay += "{:<20} {:<20} {:<20} {:<20}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
                 
-                minorAve = minorDataFilter['Grade'].mean()
+                minorAve = minorDataFilter['Grade'].mean() if not minorDataFilter.empty else 0.0
                 overallAve = termDataFilter['Grade'].mean()
                 
                 minorDisplay += "\n\n"
@@ -368,8 +371,8 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
                     fullDisplay += "{:<20} {:<20} {:<20} {:<20}\n".format(row.courseID, row.courseName, row.creditHours, row.Grade)
                 
                 fullDisplay += "\n\n"
-                fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t\t"
-                fullDisplay += f"Minor Average: {minorDataFilter['Grade'].mean():.2f}\n"
+                fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f if not majorDataFilter.empty else 0.0}   \t\t\t\t"
+                fullDisplay += f"Minor Average: {minorDataFilter['Grade'].mean():.2f if not minorDataFilter.empty else 0.0}\n"
                 fullDisplay += f"Term Average: {termDataFilter['Grade'].mean():.2f}   \t\t\t\t"
                 fullDisplay += f"Overall Average: {stdDataFilter['Grade'].mean():.2f}\n\n"
             
@@ -378,18 +381,18 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
             fullDisplay += f"{footer.center(60, '*')}\n"
             fullDisplay += border
 
-        fullFile = f"std{stdID}FullTranscript.txt"
-        with open(fullFile, 'w') as full:
-            full.write(fullDisplay)
+    fullFile = f"std{stdID}FullTranscript.txt"
+    with open(fullFile, 'w') as full:
+        full.write(fullDisplay)
             
     print(fullDisplay)
-
+    sleep(2)
         
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
     print("Clearing cache...")
     cls()
-    # sleep(1)
+    sleep(1)
     main()
 
 
@@ -397,7 +400,7 @@ def newStudentFeature():
 def terminateFeature(requestCount):
     print(f"Number of requests this session: {requestCount}")
     print("Thank you for using the system!")
-    # sleep(1)
+    sleep(1)
     exit()
 
 def recordRequest(stdID, request, requests):
@@ -451,11 +454,13 @@ def main():
             (stdDetails['Level'].isin(levels)) &
             (stdDetails['Degree'].isin(degrees))
         ]
+		sleep(1)
         if not studentData.empty:
             break  # Valid combination found, exit loop
         else:
-            print("Error: The student does not have records for the selected levels/degrees.\n")
+            print("\nError: The student does not have records for the selected levels/degrees.\n")
             print("Please reselect levels/degrees or enter a different student ID.\n")
+			cls()
     
     requestCount = 0
     while True:
