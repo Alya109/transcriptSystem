@@ -156,7 +156,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
-	studentData = pd.read_csv(f"{stdID}.csv")
+	stdData = pd.read_csv(f"{stdID}.csv")
 	statDisplay = ""
 	if levels == ["U"]:
 		for degree in degrees:
