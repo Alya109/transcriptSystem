@@ -1,5 +1,5 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,BD,1,Political Theory,f,f,f,f
+U,BD,1,Political Theory,POLI001,major,f,f
 U,BD,1,Human Resource Management,f,f,f,f
 U,BD,1,Public Finance,f,f,f,f
 U,BD,2,Public Policy,f,f,f,f
