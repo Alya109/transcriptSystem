@@ -90,11 +90,10 @@ def startFeature():
                 break
             print("Invalid choice. Please try again.")
         
-    # sleep(1)
+    sleep(1)
     return levels, degrees
     
 def menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests):
-    
     # Print the menu details
     print(
         "\n\033[1mStudent Transcript Generation System\033[0m\n"
@@ -155,7 +154,8 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     with open(detailFile, "w") as file:
         file.write(detailInfo)
     print(detailInfo)
-    # sleep(1)
+    sleep(2)
+    cls()
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
@@ -205,6 +205,8 @@ def statisticsFeature(stdID, levels, degrees):
 	statsFile = f"std{stdID}statistics.txt"
 	with open(statsFile, "w") as stats:
 		stats.write(statDisplay)
+	sleep(2)
+	cls()
 
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
@@ -265,6 +267,8 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
     exportInfo = f"std{stdID}MajorTranscript.txt"
     with open(exportInfo, 'w') as major:
         major.write(majorDisplay)
+    sleep(2)
+    cls()
 
 # Minor Transcript shows students transcript of record based on their minor courses
 def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
@@ -326,7 +330,8 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
     exportInfo = f"std{stdID}MinorTranscript.txt"
     with open(exportInfo, 'w') as minor:
         minor.write(minorDisplay)
-
+    sleep(2)
+    cls()
 	
 # Full Transscript shows students transcript of record on both major and minor courses
 def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
@@ -387,6 +392,7 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
             
     print(fullDisplay)
     sleep(2)
+    cls()
         
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
@@ -395,9 +401,9 @@ def newStudentFeature():
     sleep(1)
     main()
 
-
 # Terminate Feature shows the number of request during the session
 def terminateFeature(requestCount):
+    cls()
     print(f"Number of requests this session: {requestCount}")
     print("Thank you for using the system!")
     sleep(1)
