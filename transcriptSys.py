@@ -435,16 +435,27 @@ def previousRequestsFeature(stdID):
 
 def main():
     requests = {}
-    # Loads the csv file as a dataframe
     stdDetailsFile = "studentDetails.csv"
     stdDetails = loadDetailsFile(stdDetailsFile)
     
-    # Get user input for student level and degree
-    levels, degrees = startFeature()
-    
-    # Gets studentID and checks if it matches the stdID in the database
-    stdID = input("Enter your student ID: ").strip()
-    stdID = studentIDCheck(stdID, stdDetails)
+    while True:  # Loop to handle level/degree and student ID validation
+        levels, degrees = startFeature()
+        
+        # Get student ID and validate existence
+        stdID = input("Enter your student ID: ").strip()
+        stdID = studentIDCheck(stdID, stdDetails)
+        
+        # Check if the student has data for the selected levels and degrees
+        studentData = stdDetails[
+            (stdDetails['stdID'] == int(stdID)) &
+            (stdDetails['Level'].isin(levels)) &
+            (stdDetails['Degree'].isin(degrees))
+        ]
+        if not studentData.empty:
+            break  # Valid combination found, exit loop
+        else:
+            print("Error: The student does not have records for the selected levels/degrees.\n")
+            print("Please reselect levels/degrees or enter a different student ID.\n")
     
     requestCount = 0
     while True:
