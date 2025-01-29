@@ -1,7 +1,7 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
 U,BD,1,Computer,PROG001,Major,3,91
 U,BD,1,Data Analytics,DATA001,Minor,2,92
-U,BD,2,Software Engineering,PROG011,Major,3,88
+U,BD,2,Software Engr.,PROG011,Major,3,88
 U,BD,2,Computer Archi.,PROG012,Major,3,94
 U,BD,2,Cloud Computing,PROG013,Major,3,88
 U,BD,2,Physics,MATH011,Minor,2,89
@@ -11,7 +11,7 @@ U,BD,4,Data Management,PROG031,Major,3,92
 U,BD,4,Assembly Code,PROG032,Major,3,88
 U,BD,4,Electronics,DATA031,Minor,3,89
 G,D,1,VLSI Design,PROG101,Major,4,89
-G,D,1,Quantum Computing,MATH101,Minor,4,89
+G,D,1,Quantum Comp,MATH101,Minor,4,89
 G,D,2,Advanced Stats,MATH111,Minor,3,98
 G,D,2,Data Science,PROG111,Major,4,94
 G,D,3,Research,MATH121,Minor,6,91
