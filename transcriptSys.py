@@ -415,7 +415,7 @@ def recordRequest(stdID, request, requests):
     
     # Write to file immediately
     with open(f"std{stdID}PreviousRequests.txt", "a") as f:
-        f.write(f"{request}\t{new_entry['date']}\t{new_entry['time']}\n")
+        f.write(f"{request} \t {new_entry['date']} \t {new_entry['time']}\n")
     
     return requests
 
