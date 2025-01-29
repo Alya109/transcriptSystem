@@ -137,7 +137,7 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
     details = stdDetails
-    studentInfo = details[details['stdID'] == int(stdID)].iloc[0]
+    studentInfo = details[details['stdID'] == int(stdID) & (details['Level']) == levels].iloc[0]
 
     detailInfo = (
         f"Name: {studentInfo['Name']}\n"
