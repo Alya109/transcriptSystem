@@ -32,12 +32,15 @@ def loadDetailsFile(filename):
     return stdDetails
     
 def studentIDCheck(stdID, stdDetails):
-    data = loadDetailsFile(stdDetails)
-    while not any(data["stdID"] == stdID):
+    while str(stdID) not in stdDetails['stdID'].astype(str).values:
         print("Invalid ID. Please try again.")
         stdID = input("Enter student ID: ").strip()
     return stdID
-
+"""
+===========================
+    Transcript Features
+===========================
+"""
 # Start feature asking for student level and degree
 def startFeature():
 
@@ -84,7 +87,7 @@ def startFeature():
                 break
             print("Invalid choice. Please try again.")
         
-    sleep(1)
+    # sleep(1)
     return levels, degrees
     
 def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
@@ -133,25 +136,30 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
-    data = stdDetails
-    filteredData = data[data[:, 1] == stdID]
-   
-    detailDisplay = (
-        f"Name: {filteredData[0][2]}\n"
-        f"stdID: {filteredData[0][1]}\n"
+    details = stdDetails
+    studentInfo = details[details['stdID'] == int(stdID)].iloc[0]
+
+    detailInfo = (
+        f"Name: {studentInfo['Name']}\n"
+        f"stdID: {stdID}\n"
         f"Level(s): {', '.join(levels)}\n"
-        f"College(s): {filteredData[0][3]}\n"
-        f"Department(s): {filteredData[0][4]}"
+        f"Number of Terms: {studentInfo['Terms']}\n"
+        f"College(s): {studentInfo['College']}\n"
+        f"Department(s): {studentInfo['Department']}"
     )
     exportInfo = f"std{stdID}details.txt"
     with open(exportInfo, "w") as file:
-        file.write(detailDisplay)
-    print(detailDisplay)
-    sleep(1)
+        file.write(detailInfo)
+    print(detailInfo)
+    # sleep(1)
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
+    studentData = pd.read_csv(f'{std_id}.csv')
+    major_avg = student_data[student_data['type'] == 'major']['grade'].mean()
+    minor_avg = student_data[student_data['type'] == 'minor']['grade'].mean()
     
+    """
     valueCheck = False
     sd = loadDetailsFile(f"{stdID}.csv")
     statsDisplay = ""
@@ -195,8 +203,8 @@ def statisticsFeature(stdID, levels, degrees):
             print(statsDisplay)
         else:
         	print('No data was found with the data you entered\n')
-    sleep(1)
-    
+    # sleep(1)
+    """
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
     # Initialize a boolean variable to track if any data was found
@@ -432,66 +440,58 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
     else:
         # If no data was found, print a message
         print('No data found with the stdID, level, and degree you entered!\n')
-
-
-
-
-# Previous Request shows students recent request
-def previousRequestsFeature(stdID):
-    # Create the file name for studentID
-    
-    prevReq = f"std{stdID}PreviousRequests.txt"
-    
-    with open(prevReq, "a+") as pr:
-        # Move the pointer to the start of the file
-        pr.seek(0)
-        # Read all the lines in the file
-        lines = pr.readlines()
-        # If the file is empty or the header is not in the first line
-        if not lines or 'Request Type' not in lines[0]:
-            # Write the header to the file
-            pr.write("Request Type\t\t Time\t\tDate\n")
-
-        # Move the pointer to the end of the file to append new data
-        pr.seek(0, 2)
-        # Append new requests to the file
-        for i in range(len(requests[stdID]['requestType'])):
-            pr.write('{:<20} {:<10} {:<10}\n'.format(
-                requests[stdID]['requestType'][i], requests[stdID]['timeNow'][i], requests[stdID]['dateNow'][i]))
-
-    print(f"Previous requests for {stdID}:")
-    with open(prevReq, "r") as pr:
-        for line in pr:
-            print(line.strip())
-
+        
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
     print("Clearing cache...")
     cls()
-    sleep(1)
-    main()
+    # sleep(1)
+    # main()
 
 
 # Terminate Feature shows the number of request during the session
 def terminateFeature(requestCount):
-    print(f"Number of request: {requestCount}")
-    print("Terminating the system. Goodbye!")
+    print(f"Number of requests this session: {requestCount}")
+    print("Thank you for using the system!")
+    # sleep(1)
     exit()
 
-def recordRequest(stdID, request):
+def recordRequest(stdID, request, requests):
+    timestamp = datetime.datetime.now()
+    new_entry = {
+        'request': request,
+        'date': timestamp.strftime("%d/%m/%Y"),
+        'time': timestamp.strftime("%I:%M %p")
+    }
+    
     if stdID not in requests:
-        requests[stdID] = {'requestType': [], 'dateNow': [], 'timeNow': []}
-    # Add the request type to the student's requestType list
-    requests[stdID]['requestType'].append(request)
-    # Get the current date and time
-    date = datetime.datetime.now().strftime("%d/%m/%Y")  # format: day/month/year
-    time = datetime.datetime.now().strftime("%I:%M %p")  # format: hour:minute AM/PM
-    # Add the current date and time to student's dateNow and timeNow lists
-    requests[stdID]['dateNow'].append(date)
-    requests[stdID]['timeNow'].append(time)
+        requests[stdID] = []
+    
+    requests[stdID].append(new_entry)
+    
+    # Write to file immediately
+    with open(f"std{stdID}PreviousRequests.txt", "a") as f:
+        f.write(f"{request}\t{new_entry['date']}\t{new_entry['time']}\n")
+    
+    return requests
 
+def previousRequestsFeature(stdID, requests):
+    # Read from file instead of memory for reliability
+    filename = f"std{stdID}PreviousRequests.txt"
+    
+    try:
+        with open(filename, "r") as f:
+            content = f.read()
+            print(f"\nPrevious requests for {stdID}:")
+            print(content or "No previous requests found")
+    except FileNotFoundError:
+        print("No previous requests found")
+    
+    sleep(1)
+    return requests  # Return unmodified requests as we read from file
 
 def main():
+    requests = {}
     # Loads the csv file as a dataframe
     stdDetailsFile = "studentDetails.csv"
     stdDetails = loadDetailsFile(stdDetailsFile)
