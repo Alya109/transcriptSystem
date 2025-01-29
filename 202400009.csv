@@ -1,12 +1,12 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-U,BD,1,Political Theory,POLI001,Major,3,89
-U,BD,1,Human Resource Management,POLI002,Major,3,98
+U,BD,1,Pol. Theory,POLI001,Major,3,89
+U,BD,1,Resources,POLI002,Major,3,98
 U,BD,1,Public Finance,CPA001,Minor,2,88
 U,BD,2,Public Policy,POLI011,Major,3,85
-U,BD,2,Philippine Politics,CPA011,Minor,3,92
-U,BD,2,Development Economics,POLI012,Major,2,92
-U,BD,3,Public Management,POLI021,Major,3,93
-U,BD,3,International Political Economy,POLI022,Major,3,94
-U,BD,3,Political Methodology,CPA021,Minor,4,89
-U,BD,4,Comparative Politics,CPA031,Minor,3,87
-U,BD,4,Political Economy of Development,POLI031,Major,3,89
+U,BD,2,Philippine Pol.,CPA011,Minor,3,92
+U,BD,2,Economics,POLI012,Major,2,92
+U,BD,3,Pub. Management,POLI021,Major,3,93
+U,BD,3,Int. Politics,POLI022,Major,3,94
+U,BD,3,Pol. Methodology,CPA021,Minor,4,89
+U,BD,4,Comparative Pol.,CPA031,Minor,3,87
+U,BD,4,Pol. Economy,POLI031,Major,3,89
