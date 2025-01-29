@@ -327,80 +327,68 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
 	
 # Full Transscript shows students transcript of record on both major and minor courses
 def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
-    # Initialize a boolean variable to track if any data was found
-    foundData = False
-    # Load the student details into data frames
-    detailsDF = pd.read_csv('studentDetails.csv')
-    stdDF = pd.read_csv(f'{stdID}.csv')
-    # Initialize an empty string to store the output
-    output = ""
-    # Iterate over the selected student levels and degrees of the user
+	
+    stdInfo = pd.read_csv(f'{stdID}.csv')
+    fullDisplay = ""
+
     for level in levels:
         for degree in degrees:
-            # Filter DataFrame for rows matching the given stdID, level, and degree
-            detailsfilteredData = detailsDF[(detailsDF['stdID'] == int(stdID)) & (
-                detailsDF['Level'] == level) & (detailsDF['Degree'] == degree)]
-            if detailsfilteredData.empty:
-                continue  # skip and continue to next if no matching data were found
-            # If matching data was found, append student's name, stdID, college, department, major, minor, level, and no of terms to output string
+            fullData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (
+                stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
+            if fullData.empty:
+                continue
             border = 60 * "=" + "\n"
             footer = f"     Full Transcript for Level ({level} - {degree})     "
-            output += border
-            output += f"{footer.center(60, *'*')}\n"
-            output += f"{border}\n"
-            output += f"Name: {detailsfilteredData['Name'].iloc[0]}\t\t\t\t\t\t"
-            output += f"stdID: {detailsfilteredData['stdID'].iloc[0]}\n"
-            output += f"College: {detailsfilteredData['College'].iloc[0]}\t\t\t\t\t\t\t"
-            output += f"Department: {detailsfilteredData['Department'].iloc[0]}\n"
-            output += f"Major: {detailsfilteredData['Major'].iloc[0]}\t\t\t\t\t\t"
-            output += f"Minor: {detailsfilteredData['Minor'].iloc[0]}\n"
-            output += f"Level: {detailsfilteredData['Level'].iloc[0]}\t\t\t\t\t\t\t\t"
-            output += f"Number of terms: {detailsfilteredData['Terms'].sum()}\n\n"
-            # Filter DataFrame for rows matching the selected student level and degree
-            stdFilteredData = stdDF[(stdDF['Level'] == level) & (
-                stdDF['Degree'] == degree)]
-            # count the no. of terms for this level and degree
-            terms = stdFilteredData['Term'].unique()
-            # Iterate over the terms for selected student level and degree
+            fullDisplay += border
+            fullDisplay += f"{footer.center(60, '*')}\n"
+            fullDisplay += f"{border}\n"
+            fullDisplay += f"Name: {fullData['Name'].iloc[0]}\t\t\t\t\t\t"
+            fullDisplay += f"stdID: {fullData['stdID'].iloc[0]}\n"
+            fullDisplay += f"College: {fullData['College'].iloc[0]}\t\t\t\t\t\t\t"
+            fullDisplay += f"Department: {fullData['Department'].iloc[0]}\n"
+            fullDisplay += f"Major: {fullData['Major'].iloc[0]}\t\t\t\t\t\t"
+            fullDisplay += f"Minor: {fullData['Minor'].iloc[0]}\n"
+            fullDisplay += f"Level: {fullData['Level'].iloc[0]}\t\t\t\t\t\t\t\t"
+            fullDisplay += f"Number of terms: {fullData['Terms'].sum()}\n\n"
+            
+            stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (
+                stdInfo['Degree'] == degree)]
+			
+            terms = stdDataFilter['Term'].unique()
+            
             for term in terms:
-                # Filter DataFrames for rows matching the given term
-                termFilteredData = stdFilteredData[(
-                    stdFilteredData['Term'] == term)]
-                minorFilteredData = termFilteredData[termFilteredData['courseType'] == 'Minor']
-                majorFilteredData = termFilteredData[termFilteredData['courseType'] == 'Major']
-                # Append the courseID, courseName, creditHours, and average grades for each course in this term to the output
+                termDataFilter = stdDataFilter[(stdDataFilter['Term'] == term)]
+				
+                minorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Minor']
+                majorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Major']
+                
                 titleTerm = f"     Term ({term})     "
+		
                 border = 60 * "=" + "\n"
-                output += border
-                output += f"{titleTerm.center(60, *'*')}\n"
-                output += border
-                output += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                fullDisplay += border
+                fullDisplay += f"{titleTerm.center(60, *'*')}\n"
+                fullDisplay += border
+                fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
                     "courseID", "courseName", "creditHours", "Grade")
-                for row in termFilteredData.itertuples(index=False):
-                    output += "{:^15} {:^15} {:^15} {:^15}\n".format(
+				
+                for row in termDataFilter.itertuples(index=False):
+                    fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
-                output += "\n\n"
-                output += f"Major Average: {majorFilteredData['Grade'].mean():.2f}   \t\t\t\t"
-                output += f"Minor Average: {minorFilteredData['Grade'].mean():.2f}\n"
-                output += f"Term Average: {termFilteredData['Grade'].mean():.2f}   \t\t\t\t"
-                output += f"Overall Average: {stdFilteredData['Grade'].mean():.2f}\n\n"
+                fullDisplay += "\n\n"
+                fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t\t"
+                fullDisplay += f"Minor Average: {minorDataFilter['Grade'].mean():.2f}\n"
+                fullDisplay += f"Term Average: {termDataFilter['Grade'].mean():.2f}   \t\t\t\t"
+                fullDisplay += f"Overall Average: {stdDataFilter['Grade'].mean():.2f}\n\n"
             footer = f"     End of Transcript for Level ({level} - {degree})     "
-            output += border
-            output += f"{footer.center(60, *'*')}\n"
-            output += border
-            # Set foundData to True to indicate that data has been found for this student
-            foundData = True
-    # If data was found for the student, write the output string to a TXT file and print it
-    if foundData:
-        # Write the output string to a TXT file
-        outputTXTFile = f"std{stdID}FullTranscript.txt"
-        with open(outputTXTFile, 'w') as f:
-            f.write(output)
-        # Print output
-        print(output)
-    else:
-        # If no data was found, print a message
-        print('No data found with the stdID, level, and degree you entered!\n')
+            fullDisplay += border
+            fullDisplay += f"{footer.center(60, *'*')}\n"
+            fullDisplay += border
+            
+        fullFile = f"std{stdID}FullTranscript.txt"
+        with open(fullFile, 'w') as full:
+            full.write(fullDisplay)
+			
+        print(fullDisplay)
         
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
