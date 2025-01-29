@@ -155,58 +155,56 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     # sleep(1)
     
 # Statistics Feature shows student's records
-def statisticsFeature(stdID, levels, degrees):
-    studentData = pd.read_csv(f'{std_id}.csv')
-    
-    # major_avg = student_data[student_data['type'] == 'major']['grade'].mean()
-    # minor_avg = student_data[student_data['type'] == 'minor']['grade'].mean()
-    
-    """
-    valueCheck = False
-    sd = loadDetailsFile(f"{stdID}.csv")
-    statsDisplay = ""
-    
-    for level in levels:
-        if level == "U":
-            levelName = "Undergraduate"
-        else:
-            levelName = "Graduate"
+def statisticFeature(stdID, stdDegree:list, stdLevel):
+    # Reads the csv file for a spe
+    studentData = pd.read_csv(f"{stdID}.csv")
+    statDisplay = ""
+    if levels == ["U"]:
         for degree in degrees:
-            dataFilter = sd[(sd['Level'] == level) & (sd['Degree'] == degree)]
-            if dataFilter.empty:
-                continue
-            overallAverage = dataFilter['Grade'].mean()
-            aveTerm = dataFilter.groupby('Term')['Grade'].mean()
-            maxTerm = dataFilter['Grade'].max()
-            maxGrades = dataFilter[dataFilter['Grade'] == maxTerm]
-            minTerm = dataFilter['Grade'].min()
-            minGrades = dataFilter[dataFilter['Grade'] == minTerm]
-            
-            statsTitle = f"     {levelName} ({degree}) Level     "
-            statsDisplay += "=" * 50 + "\n"
-            statsDisplay += f"{statsTitle.center(50, *'*')}\n"
-            statsDisplay += "=" * 50 + "\n"
-            statsDisplay += f"Overall average (major and minor) for all terms: {overallAverage:.2f}\n"
-            statsDisplay += "Average (major and minor) of each term:\n"
-            
-            for term, avg in aveTerm.items():
-                statsDisplay += f"\tTerm {term}: {avg:.2f}\n"
-            statsDisplay += "Maximum grade(s) and in which term(s):\n"
-            for _, row in maxGrades.iterrows():
-                statsDisplay += f"\tTerm {row['Term']}: {row['Grade']}\n"
-            statsDisplay += "Minimum grade(s) and in which term(s):\n"
-            for _, row in minGrades.iterrows():
-                statsDisplay += f"\tTerm {row['Term']}: {row['Grade']}\n"
-            valueCheck = True
-        if valueCheck:
-            exportInfo = f"std{stdID}statistics.txt"
-            with open(exportInfo, 'w') as info:
-                info.write(statsDisplay)
-            print(statsDisplay)
-        else:
-        	print('No data was found with the data you entered\n')
-    # sleep(1)
-    """
+            degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
+		    overallAverage = degreeData["Grade"].mean()
+		    statDisplay += "=" * 40
+		    statDisplay += f"\n********** Undergraduate **********\n"
+		    statDisplay += "=" * 40
+		    statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
+		    statDisplay += f"Average (major and minor) of each term: \n"
+		    
+            terms = degreeData["Term"].unique()
+		    for index in terms:
+			    average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
+			    statDisplay += f"Term {index}: {average:.2f}\n"
+			
+		    maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
+		    minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
+		
+            statDisplay += f"\nMinimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}"
+		    statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}"
+			
+    elif levels == ["G"] or levels == ["U", "G"]:
+	    for degree in degrees:
+		    degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
+		
+		    overallAverage = degreeData["Grade"].mean()
+		
+		    statDisplay += "=" * 40
+		    statDisplay += f"******** Graduate {degree} ********"
+		    statDisplay += "=" * 40
+		    statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
+		    statDisplay += f"Average (major and minor) of each term: \n"
+		
+		    terms = degreeData["Term"].unique()
+		
+		    for index in terms:
+			    average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
+			    statDisplay += f"Term {index}: {average:.2f}\n"
+			
+		    maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
+		    minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
+
+		    statDisplay += f"Minimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}\n"
+		    statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}\n"
+
+    
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
     # Initialize a boolean variable to track if any data was found
