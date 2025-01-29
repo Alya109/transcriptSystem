@@ -449,7 +449,6 @@ def previousRequestsFeature(stdID):
         print("No previous requests found")
     
     sleep(1)
-    return requests  # Return unmodified requests as we read from file
 
 def main():
     requests = {}
