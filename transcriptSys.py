@@ -90,7 +90,7 @@ def startFeature():
     # sleep(1)
     return levels, degrees
     
-def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
+def menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests):
     
     # Print the menu details
     print(
@@ -110,22 +110,22 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails, levels, degrees)
-        recordRequest(stdID, "Student Details")
+        recordRequest(stdID, "Student Details", requests)
     elif featureChoice == 2:
         statisticsFeature(stdID, levels, degrees)
-        recordRequest(stdID, "Statistics")
+        recordRequest(stdID, "Statistics", requests)
     elif featureChoice == 3:
         majorTranscriptFeature(stdID, stdDetails, levels, degrees)
-        recordRequest(stdID, "Major Transcript")
+        recordRequest(stdID, "Major Transcript", requests)
     elif featureChoice == 4:
         minorTranscriptFeature(stdID, stdDetails, levels, degrees)
-        recordRequest(stdID, "Minor Transcript")
+        recordRequest(stdID, "Minor Transcript", requests)
     elif featureChoice == 5:
         fullTranscriptFeature(stdID, stdDetails, levels, degrees)
-        recordRequest(stdID, "Full Transcript")
+        recordRequest(stdID, "Full Transcript", requests)
     elif featureChoice == 6:
         previousRequestsFeature(stdID)
-        recordRequest(stdID, "Previous Requests")
+        recordRequest(stdID, "Previous Requests", requests)
     elif featureChoice == 7:
         newStudentFeature()
     elif featureChoice == 8:
@@ -196,7 +196,7 @@ def statisticsFeature(stdID, levels, degrees):
 			minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
 			statDisplay += f"Minimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}\n"
 			statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}\n"
-			
+	print(statDisplay)
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
     # Initialize a boolean variable to track if any data was found
@@ -467,7 +467,7 @@ def recordRequest(stdID, request, requests):
     
     return requests
 
-def previousRequestsFeature(stdID, requests):
+def previousRequestsFeature(stdID):
     # Read from file instead of memory for reliability
     filename = f"std{stdID}PreviousRequests.txt"
     
@@ -497,7 +497,7 @@ def main():
     
     requestCount = 0
     while True:
-        requestCount = menuFeature(stdID, stdDetails, levels, degrees, requestCount)
+        requestCount = menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests)
 
 if __name__ == "__main__":
     main()
