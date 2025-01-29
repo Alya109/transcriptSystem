@@ -184,7 +184,7 @@ def statisticsFeature(stdID, levels, degrees):
 			overallAverage = degreeData["Grade"].mean()
 			
 			statDisplay += "=" * 40
-			statDisplay += f"******** Graduate {degree} ********"
+			statDisplay += f"\n******** Graduate {degree} ********\n"
 			statDisplay += "=" * 40
 			statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
 			statDisplay += f"Average (major and minor) of each term: \n"
