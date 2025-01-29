@@ -137,15 +137,16 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount):
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
     details = stdDetails
-    studentInfo = details[details['stdID'] == int(stdID) & (details['Level']) == levels].iloc[0]
-
+    
+    studentInfo = details[(details["stdID"] == int(stdID)) & (
+        details["Level"].isin(levels)) & (details["Degree"].isin(degrees))]
     detailInfo = (
-        f"Name: {studentInfo['Name']}\n"
+        f"Name: {studentInfo['Name'].iloc[0]}\n"
         f"stdID: {stdID}\n"
         f"Level(s): {', '.join(levels)}\n"
-        f"Number of Terms: {studentInfo['Terms']}\n"
-        f"College(s): {studentInfo['College']}\n"
-        f"Department(s): {studentInfo['Department']}"
+        f"Number of Terms: {studentInfo['Terms'].sum(0)}\n"
+        f"College(s): {', '.join(studentInfo['College'].unique().tolist())}\n"
+        f"Department(s): {', '.join(studentInfo['Department'].unique().tolist())}"
     )
     exportInfo = f"std{stdID}details.txt"
     with open(exportInfo, "w") as file:
@@ -156,8 +157,9 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
     studentData = pd.read_csv(f'{std_id}.csv')
-    major_avg = student_data[student_data['type'] == 'major']['grade'].mean()
-    minor_avg = student_data[student_data['type'] == 'minor']['grade'].mean()
+    
+    # major_avg = student_data[student_data['type'] == 'major']['grade'].mean()
+    # minor_avg = student_data[student_data['type'] == 'minor']['grade'].mean()
     
     """
     valueCheck = False
