@@ -266,7 +266,7 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
 # Minor Transscript shows students transcript of record based on their minor courses
 def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
 	stdInfo = pd.read_csv(f'{stdID}.csv')
-    
+	
     minorDisplay = ""
     for level in levels:
         for degree in degrees:
