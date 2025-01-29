@@ -1,12 +1,12 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-f,f,f,Political Theory,f,f,f,f
-f,f,f,Human Resource Management,f,f,f,f
-f,f,f,Public Finance,f,f,f,f
-f,f,f,Public Policy,f,f,f,f
-f,f,f,Philippine Politics,f,f,f,f
-f,f,f,Development Economics,f,f,f,f
-f,f,f,Public Management,f,f,f,f
-f,f,f,International Political Economy,f,f,f,f
-f,f,f,Political Methodology,f,f,f,f
-f,f,f,Comparative Politics,f,f,f,f
-f,f,f,Political Economy of Development,f,f,f,f
+U,BD,1,Political Theory,f,f,f,f
+U,BD,1,Human Resource Management,f,f,f,f
+U,BD,1,Public Finance,f,f,f,f
+U,BD,2,Public Policy,f,f,f,f
+U,BD,2,Philippine Politics,f,f,f,f
+U,BD,2,Development Economics,f,f,f,f
+U,BD,3,Public Management,f,f,f,f
+U,BD,3,International Political Economy,f,f,f,f
+U,BD,3,Political Methodology,f,f,f,f
+U,BD,4,Comparative Politics,f,f,f,f
+U,BD,4,Political Economy of Development,f,f,f,f
