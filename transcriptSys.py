@@ -250,7 +250,7 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
                     majorDisplay += "{:<20} {:<20} {:<20} {:<20}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
                 
-                majorAve = majorDataFilter['Grade'].mean() if not majorDataFilter.empty else 0.0
+                majorAve = majorDataFilter['Grade'].mean()
                 overallAve = termDataFilter['Grade'].mean()
                 
                 majorDisplay += "\n\n"
@@ -310,7 +310,7 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
                     minorDisplay += "{:<20} {:<20} {:<20} {:<20}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
                 
-                minorAve = minorDataFilter['Grade'].mean() if not minorDataFilter.empty else 0.0
+                minorAve = minorDataFilter['Grade'].mean()
                 overallAve = termDataFilter['Grade'].mean()
                 
                 minorDisplay += "\n\n"
@@ -371,8 +371,8 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
                     fullDisplay += "{:<20} {:<20} {:<20} {:<20}\n".format(row.courseID, row.courseName, row.creditHours, row.Grade)
                 
                 fullDisplay += "\n\n"
-                fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f if not majorDataFilter.empty else 0.0}   \t\t\t\t"
-                fullDisplay += f"Minor Average: {minorDataFilter['Grade'].mean():.2f if not minorDataFilter.empty else 0.0}\n"
+                fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t\t"
+                fullDisplay += f"Minor Average: {minorDataFilter['Grade'].mean():.2f}\n"
                 fullDisplay += f"Term Average: {termDataFilter['Grade'].mean():.2f}   \t\t\t\t"
                 fullDisplay += f"Overall Average: {stdDataFilter['Grade'].mean():.2f}\n\n"
             
@@ -411,14 +411,17 @@ def recordRequest(stdID, request, requests):
         'time': timestamp.strftime("%I:%M %p")
     }
     
-    if stdID not in requests:
-        requests[stdID] = []
+    filename = f"std{stdID}PreviousRequests.txt"
     
-    requests[stdID].append(new_entry)
+    # Write header if file doesn't exist
+    if not os.path.exists(filename):
+        with open(filename, "w") as f:
+            f.write(f"{'Request':<20} {'Date':<15} {'Time':<20}\n")
+            f.write("-" * 45 + "\n")
     
-    # Write to file immediately
-    with open(f"std{stdID}PreviousRequests.txt", "a") as f:
-        f.write(f"{request:<15} \t {new_entry['date']:<15} \t {new_entry['time']:<15}\n")
+    # Append the new entry
+    with open(filename, "a") as f:
+        f.write(f"{request:<20} {new_entry['date']:<15} {new_entry['time']:<20}\n")
     
     return requests
 
@@ -454,13 +457,13 @@ def main():
             (stdDetails['Level'].isin(levels)) &
             (stdDetails['Degree'].isin(degrees))
         ]
-		sleep(1)
+        sleep(1)
         if not studentData.empty:
             break  # Valid combination found, exit loop
         else:
             print("\nError: The student does not have records for the selected levels/degrees.\n")
             print("Please reselect levels/degrees or enter a different student ID.\n")
-			cls()
+            cls()
     
     requestCount = 0
     while True:
