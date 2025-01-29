@@ -340,13 +340,13 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
             fullDisplay += border
             fullDisplay += f"{footer.center(60, '*')}\n"
             fullDisplay += f"{border}\n"
-            fullDisplay += f"Name: {fullData['Name'].iloc[0]}\t\t\t\t\t\t"
+            fullDisplay += f"Name: {fullData['Name'].iloc[0]}\t\t\t"
             fullDisplay += f"stdID: {fullData['stdID'].iloc[0]}\n"
-            fullDisplay += f"College: {fullData['College'].iloc[0]}\t\t\t\t\t\t\t"
+            fullDisplay += f"College: {fullData['College'].iloc[0]}\t\t\t\t"
             fullDisplay += f"Department: {fullData['Department'].iloc[0]}\n"
-            fullDisplay += f"Major: {fullData['Major'].iloc[0]}\t\t\t\t\t\t"
+            fullDisplay += f"Major: {fullData['Major'].iloc[0]}\t\t\t"
             fullDisplay += f"Minor: {fullData['Minor'].iloc[0]}\n"
-            fullDisplay += f"Level: {fullData['Level'].iloc[0]}\t\t\t\t\t\t\t\t"
+            fullDisplay += f"Level: {fullData['Level'].iloc[0]}\t\t\t\t"
             fullDisplay += f"Number of terms: {fullData['Terms'].sum()}\n\n"
 
             stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (stdInfo['Degree'] == degree)]
