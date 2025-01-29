@@ -327,14 +327,12 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
 	
 # Full Transscript shows students transcript of record on both major and minor courses
 def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
-	
     stdInfo = pd.read_csv(f'{stdID}.csv')
     fullDisplay = ""
 
     for level in levels:
         for degree in degrees:
-            fullData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (
-                stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
+            fullData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
             if fullData.empty:
                 continue
             border = 60 * "=" + "\n"
@@ -350,45 +348,42 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
             fullDisplay += f"Minor: {fullData['Minor'].iloc[0]}\n"
             fullDisplay += f"Level: {fullData['Level'].iloc[0]}\t\t\t\t\t\t\t\t"
             fullDisplay += f"Number of terms: {fullData['Terms'].sum()}\n\n"
-            
-            stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (
-                stdInfo['Degree'] == degree)]
-			
+
+            stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (stdInfo['Degree'] == degree)]
             terms = stdDataFilter['Term'].unique()
             
             for term in terms:
                 termDataFilter = stdDataFilter[(stdDataFilter['Term'] == term)]
-				
                 minorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Minor']
                 majorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Major']
                 
                 titleTerm = f"     Term ({term})     "
-		
                 border = 60 * "=" + "\n"
                 fullDisplay += border
-                fullDisplay += f"{titleTerm.center(60, *'*')}\n"
+                fullDisplay += f"{titleTerm.center(60, '*')}\n"
                 fullDisplay += border
-                fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
-                    "courseID", "courseName", "creditHours", "Grade")
-				
+                fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format("courseID", "courseName", "creditHours", "Grade")
+                
                 for row in termDataFilter.itertuples(index=False):
-                    fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
-                        row.courseID, row.courseName, row.creditHours, row.Grade)
+                    fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(row.courseID, row.courseName, row.creditHours, row.Grade)
+                
                 fullDisplay += "\n\n"
                 fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t\t"
                 fullDisplay += f"Minor Average: {minorDataFilter['Grade'].mean():.2f}\n"
                 fullDisplay += f"Term Average: {termDataFilter['Grade'].mean():.2f}   \t\t\t\t"
                 fullDisplay += f"Overall Average: {stdDataFilter['Grade'].mean():.2f}\n\n"
+            
             footer = f"     End of Transcript for Level ({level} - {degree})     "
             fullDisplay += border
-            fullDisplay += f"{footer.center(60, *'*')}\n"
+            fullDisplay += f"{footer.center(60, '*')}\n"
             fullDisplay += border
-            
+
         fullFile = f"std{stdID}FullTranscript.txt"
         with open(fullFile, 'w') as full:
             full.write(fullDisplay)
-			
-        print(fullDisplay)
+            
+    print(fullDisplay)
+
         
 # New Student Feature allows another student after clearing all previous data
 def newStudentFeature():
