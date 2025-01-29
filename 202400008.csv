@@ -10,9 +10,9 @@ U,BD,3,Algorithms,CMPE002,Minor,3,91
 U,BD,4,Data Management,PROG031,Major,3,92
 U,BD,4,Assembly Code,PROG032,Major,3,88
 U,BD,4,Digital Electonics,DATA031,Minor,3,89
-G,D,1,Advanced Machine Learning,PROG101,Major,4,89
+G,D,1,VLSI Design,PROG101,Major,4,89
 G,D,1,Quantum Computing,MATH101,Major,4,89
 G,D,2,Advanced Statistics,MATH111,Minor,3,98
-G,D,2,Computational Neuroscience,PROG111,Major,4,94
+G,D,2,Data Science,PROG111,Major,4,94
 G,D,3,Dissertation Research,MATH121,Minor,6,91
-G,D,3,Advanced Data Analytics,PROG121,Major,4,92
+G,D,3,Cybersecurity,PROG121,Major,4,92
