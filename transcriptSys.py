@@ -241,10 +241,10 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
                 majorDisplay += border
                 majorDisplay += f"{titleTerm.center(60, '*')}\n"
                 majorDisplay += border
-                majorDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                majorDisplay += "{:<15} {:<15} {:<15} {:<15}\n".format(
                     "courseID", "courseName", "creditHours", "Grade")
                 for row in majorDataFilter.itertuples(index=False):
-                    majorDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                    majorDisplay += "{:<15} {:<15} {:<15} {:<15}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
                 
                 majorAve = majorDataFilter['Grade'].mean()
@@ -301,10 +301,10 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
                 minorDisplay += border
                 minorDisplay += f"{titleTerm.center(60, '*')}\n"
                 minorDisplay += border
-                minorDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                minorDisplay += "{:<15} {:<15} {:<15} {:<15}\n".format(
                     "courseID", "courseName", "creditHours", "Grade")
                 for row in minorDataFilter.itertuples(index=False):
-                    minorDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                    minorDisplay += "{:<15} {:<15} {:<15} {:<15}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
                 
                 minorAve = minorDataFilter['Grade'].mean()
@@ -362,10 +362,10 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
                 fullDisplay += border
                 fullDisplay += f"{titleTerm.center(60, '*')}\n"
                 fullDisplay += border
-                fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format("courseID", "courseName", "creditHours", "Grade")
+                fullDisplay += "{:<15} {:<15} {:<15} {:<15}\n".format("courseID", "courseName", "creditHours", "Grade")
                 
                 for row in termDataFilter.itertuples(index=False):
-                    fullDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(row.courseID, row.courseName, row.creditHours, row.Grade)
+                    fullDisplay += "{:<15} {:<15} {:<15} {:<15}\n".format(row.courseID, row.courseName, row.creditHours, row.Grade)
                 
                 fullDisplay += "\n\n"
                 fullDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t\t"
@@ -415,7 +415,7 @@ def recordRequest(stdID, request, requests):
     
     # Write to file immediately
     with open(f"std{stdID}PreviousRequests.txt", "a") as f:
-        f.write(f"{request} \t {new_entry['date']} \t {new_entry['time']}\n")
+        f.write(f"{request:<10} \t {new_entry['date']:<10} \t {new_entry['time']:<10}\n")
     
     return requests
 
