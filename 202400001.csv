@@ -11,7 +11,7 @@ U,BD,3,Data Analytics,CMPE022,Major,3,92
 U,BD,4,Engineer Chem.,MATH031,Minor,4,89
 U,BD,4,AI,CMPE031,Major,3,91
 G,D,1,Advanced ML,CMPE101,Major,4,95
-G,D,1,Quantum Computing,MATH101,Minor,4,93
+G,D,1,Quantum Comp,MATH101,Minor,4,93
 G,D,2,Advanced Stats,MATH111,Minor,3,92
 G,D,2,Neuroscience,CMPE111,Major,4,94
 G,D,3,Research,MATH121,Minor,6,96
