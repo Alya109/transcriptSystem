@@ -148,8 +148,8 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
         f"College(s): {', '.join(studentInfo['College'].unique().tolist())}\n"
         f"Department(s): {', '.join(studentInfo['Department'].unique().tolist())}"
     )
-    exportInfo = f"std{stdID}details.txt"
-    with open(exportInfo, "w") as file:
+    detailFile = f"std{stdID}details.txt"
+    with open(detailFile, "w") as file:
         file.write(detailInfo)
     print(detailInfo)
     # sleep(1)
@@ -157,6 +157,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
 	stdData = pd.read_csv(f"{stdID}.csv")
+	
 	statDisplay = ""
 	if levels == ["U"]:
 		for degree in degrees:
@@ -196,88 +197,71 @@ def statisticsFeature(stdID, levels, degrees):
 			minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
 			statDisplay += f"Minimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}\n"
 			statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}\n"
+	
 	print(statDisplay)
+	statsFile = f"std{stdID}statistics.txt"
+	with open(statsFile, "w") as stats:
+		stats.write(statDisplay)
+
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
-    # Initialize a boolean variable to track if any data was found
-    valueCheck = False
-    # Load the student details into data frames
-    sDetails = pd.read_csv('studentDetails.csv')
-    std = pd.read_csv(f'{stdID}.csv')
-    # Initialize an empty string to store the output
-    mDisplay = ""
-    # Iterate over the selected student level and degree of the user
+    stdInfo = pd.read_csv(f'{stdID}.csv')
+    
+    majorDisplay = ""
     for level in levels:
         for degree in degrees:
-            # Filter the DataFrame to only include data for the selected student stdID, level and degree
-            dataFilter = sDetails[(sDetails['stdID'] == int(stdID)) & (
-                sDetails['Level'] == level) & (sDetails['Degree'] == degree)]
-            # If there is no data found, skip and continue
-            if dataFilter.empty:
+            majorData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (
+                stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
+            if majorData.empty:
                 continue
-            # If matching data was found, add the student details to the output string like name, stdID, college etc
             border = 60 * "=" + "\n"
             footer = f"     Major Transcript for Level ({level} - {degree})     "
-            mDisplay += border
-            mDisplay += f"{footer.center(60, *'*')}\n"
-            mDisplay += f"{border}\n"
-            mDisplay += f"Name: {dataFilter['Name'].iloc[0]}\t\t\t"
-            mDisplay += f"stdID: {dataFilter['stdID'].iloc[0]}\n"
-            mDisplay += f"College: {dataFilter['College'].iloc[0]}\t\t\t\t"
-            mDisplay += f"Department: {dataFilter['Department'].iloc[0]}\n"
-            mDisplay += f"Major: {dataFilter['Major'].iloc[0]}\t\t\t"
-            mDisplay += f"Minor: {dataFilter['Minor'].iloc[0]}\n"
-            mDisplay += f"Level: {dataFilter['Level'].iloc[0]}\t\t\t\t"
-            mDisplay += f"Number of terms: {dataFilter['Terms'].sum()}\n\n"
-            # Filter the DataFrame to only include data for the selected student level and degree
-            stdDataFilter = std[(std['Level'] == level) & (
-                std['Degree'] == degree)]
-            # Get a list of terms to be counted
+            majorDisplay += border
+            majorDisplay += f"{footer.center(60, '*')}\n"
+            majorDisplay += f"{border}\n"
+            majorDisplay += f"Name: {majorData['Name'].iloc[0]}\t\t\t"
+            majorDisplay += f"stdID: {majorData['stdID'].iloc[0]}\n"
+            majorDisplay += f"College: {majorData['College'].iloc[0]}\t\t\t\t"
+            majorDisplay += f"Department: {majorData['Department'].iloc[0]}\n"
+            majorDisplay += f"Major: {majorData['Major'].iloc[0]}\t\t\t"
+            majorDisplay += f"Minor: {majorData['Minor'].iloc[0]}\n"
+            majorDisplay += f"Level: {majorData['Level'].iloc[0]}\t\t\t\t"
+            majorDisplay += f"Number of terms: {majorData['Terms'].sum()}\n\n"
+            
+            stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (
+                stdInfo['Degree'] == degree)]
+            
             terms = stdDataFilter['Term'].unique()
-            # Iterate over each term
+            
             for term in terms:
-                # Filter the DataFrame to only include data for the term
-                termDataFilter = stdDataFilter[(
-                    stdDataFilter['Term'] == term)]
-                # Filter the DataFram to only include data for major courses
+                termDataFilter = stdDataFilter[(stdDataFilter['Term'] == term)]
                 majorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Major']
-                # Add the major courses information like type, name, grade to the output string
                 titleTerm = f"     Term ({term})     "
                 border = 60 * "=" + "\n"
-                mDisplay += border
-                mDisplay += f"{titleTerm.center(60, *'*')}\n"
-                mDisplay += border
-                mDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                majorDisplay += border
+                majorDisplay += f"{titleTerm.center(60, '*')}\n"
+                majorDisplay += border
+                majorDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
                     "courseID", "courseName", "creditHours", "Grade")
                 for row in majorDataFilter.itertuples(index=False):
-                    mDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
+                    majorDisplay += "{:^15} {:^15} {:^15} {:^15}\n".format(
                         row.courseID, row.courseName, row.creditHours, row.Grade)
-                    
+                
                 majorAve = majorDataFilter['Grade'].mean()
                 overallAve = termDataFilter['Grade'].mean()
                 
-                
-                mDisplay += "\n\n"
-                mDisplay += f"Major Average: {majorDataFilter['Grade'].mean():.2f}   \t\t\t"
-                mDisplay += f"Overall Average: {termDataFilter['Grade'].mean():.2f}\n\n"
+                majorDisplay += "\n\n"
+                majorDisplay += f"Major Average: {majorAve:.2f}   \t\t\t"
+                majorDisplay += f"Overall Average: {overallAve:.2f}\n\n"
             footer = f"     End of Transcript for Level ({level} - {degree})     "
-            mDisplay += border
-            mDisplay += f"{footer.center(60, *'*')}\n"
-            mDisplay += border
-            # Set foundData to True to indicate that data has been found for this student
-            valueCheck = True
+            majorDisplay += border
+            majorDisplay += f"{footer.center(60, '*')}\n"
+            majorDisplay += border
 
-    # If any data was found, write the output string to store in text file and print it
-    if valueCheck:
-        # Write the output string to a TXT file
-        exportInfo = f"std{stdID}MajorTranscript.txt"
-        with open(exportInfo, 'w') as mdisp:
-            mdisp.write(mDisplay)
-        # Print output
-        print(mDisplay)
-    else:
-        # If no data was found, print a message
-        print('No data found with the stdID, level, and degree you entered!\n')
+    print(majorDisplay)
+    exportInfo = f"std{stdID}MajorTranscript.txt"
+    with open(exportInfo, 'w') as major:
+        major.write(majorDisplay)
 
 # Minor Transscript shows students transcript of record based on their minor courses
 def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
