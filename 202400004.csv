@@ -1,5 +1,5 @@
 Level,Degree,Term,courseName,courseID,courseType,creditHours,Grade
-G,M,1,AI Systems,CMPE201,Major,3,92
-G,M,1,System design,CMPE201,Major,3,85
-G,M,2,Fundamentals of Machine Learning,CMPE201,Major,3,91
-G,M,2,Information Theory and Coding,CMPE201,Major,3,95
+G,M,1,AI Systems,CMPE201,Major,3,91
+G,M,1,System design,MATH201,Minor,3,89
+G,M,2,Fundamentals of Machine Learning,CMPE211,Major,3,91
+G,M,2,Information Theory and Coding,MATH211,Minor,3,87
