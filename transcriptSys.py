@@ -155,11 +155,10 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     # sleep(1)
     
 # Statistics Feature shows student's records
-def statisticFeature(stdID, stdDegree:list, stdLevel):
-    # Reads the csv file for a spe
-    studentData = pd.read_csv(f"{stdID}.csv")
+def statisticsFeature(stdID, stdDegree:list, stdLevel):
+	studentData = pd.read_csv(f"{stdID}.csv")
 	statDisplay = ""
-    if levels == ["U"]:
+	if levels == ["U"]:
 		for degree in degrees:
 			degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
 			overallAverage = degreeData["Grade"].mean()
