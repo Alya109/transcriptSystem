@@ -164,7 +164,7 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     sleep(2)
     cls()
     
-# Statistics Feature shows student's records
+# Statistics Feature shows students records
 def statisticsFeature(stdID, levels, degrees):
     stdData = pd.read_csv(f"{stdID}.csv")
     
@@ -444,7 +444,7 @@ def recordRequest(stdID, request, requests):
     return requests
 
 def previousRequestsFeature(stdID):
-    # Read from file instead of memory for reliability
+    # Read the text file previous request
     filename = f"std{stdID}PreviousRequests.txt"
     
     try:
@@ -465,7 +465,7 @@ def main():
     while True:  # Loop to handle level/degree and student ID validation
         levels, degrees = startFeature()
         
-        # Get student ID and validate existence
+        # Get student ID and validate if it's in the database
         stdID = input("Enter your student ID: ").strip()
         stdID = studentIDCheck(stdID, stdDetails)
         
@@ -477,7 +477,7 @@ def main():
         ]
         sleep(1)
         if not studentData.empty:
-            break  # Valid combination found, exit loop
+            break
         else:
             print("\nError: The student does not have records for the selected levels/degrees.\n")
             print("Please reselect levels/degrees or enter a different student ID.\n")
