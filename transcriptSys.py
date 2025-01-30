@@ -1,4 +1,4 @@
-# This work done by group ##:
+# This work done by Group #7:
 # Araja, Prince Jeoff, 2024-04758-MN-0, 21%
 # Lumabi, Earl Vanesse, 2024-04985-MN-0, 30%
 # Modesto, Isaiah, 2024-16637-MN-0, 21%
