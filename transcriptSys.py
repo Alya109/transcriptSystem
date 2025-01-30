@@ -109,35 +109,44 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests):
         + "8. Terminate the system\n"
         + "=" * 40 + "\n"
     )
+    # Check if user's input is a valid integer between 1-8
     featureChoice = int(input("\033[1mEnter your feature (1-8): \033[0m"))
-
+    
+    # If the user's choice is 1, call the detailsFeature function and record the request in the recordRequest function
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Student Details", requests)
         requestCount += 1
+    # If the user's choice is 2, call the statisticsFeature function and record the request in the recordRequest function
     elif featureChoice == 2:
         statisticsFeature(stdID, levels, degrees)
         recordRequest(stdID, "Statistics", requests)
         requestCount += 1
+    # If the user's choice is 3, call the majorTranscriptFeature function and record the request in the recordRequest function
     elif featureChoice == 3:
         majorTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Major Transcript", requests)
         requestCount += 1
+    # If the user's choice is 4, call the minorTranscriptFeature function and record the request in the recordRequest function
     elif featureChoice == 4:
         minorTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Minor Transcript", requests)
         requestCount += 1
+    # If the user's choice is 5, call the fullTranscriptFeature function and record the request in the recordRequest function
     elif featureChoice == 5:
         fullTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Full Transcript", requests)
         requestCount += 1
+    # If the user's choice is 6, call the previousRequestFeature function
     elif featureChoice == 6:
         previousRequestsFeature(stdID)
         recordRequest(stdID, "Previous Requests", requests)
         requestCount += 1
+    # If the user's choice is 7, call the newStudentRequestFeature function
     elif featureChoice == 7:
         newStudentFeature()
         requestCount += 1
+    # If the user's choice is 8, print a message indicating that the system is terminating
     elif featureChoice == 8:
         terminateFeature(requestCount)
     else:
@@ -147,6 +156,7 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests):
 def detailsFeature(stdID, stdDetails, levels, degrees):
     details = stdDetails
     
+    # If matching data was found, create a string with the student details
     studentInfo = details[(details["stdID"] == int(stdID)) & (
         details["Level"].isin(levels)) & (details["Degree"].isin(degrees))]
     detailInfo = (
@@ -171,6 +181,7 @@ def statisticsFeature(stdID, levels, degrees):
     statDisplay = ""
     if levels == ["U"]:
         for degree in degrees:
+            # Calculate overall statistics of the student's course details
             degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
             overallAverage = degreeData["Grade"].mean()
             statDisplay += "=" * 40
@@ -193,6 +204,7 @@ def statisticsFeature(stdID, levels, degrees):
             degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
             overallAverage = degreeData["Grade"].mean()
             
+            # Display the output string with the calculated statistics
             statDisplay += "=" * 40
             statDisplay += f"\n******** Graduate {degree} ********\n"
             statDisplay += "=" * 40
@@ -229,8 +241,10 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
         for degree in degrees:
             majorData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (
                 stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
+            # If there is no data found, skip and continue
             if majorData.empty:
                 continue
+            # If matching data was found, add the student details to the output string
             border = 60 * "=" + "\n"
             footer = f"     Major Transcript for Level ({level} - {degree})     "
             majorDisplay += border
@@ -248,6 +262,7 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
             stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (
                 stdInfo['Degree'] == degree)]
             
+            # Get a list of terms to be counted
             terms = stdDataFilter['Term'].unique()
             
             for term in terms:
@@ -276,6 +291,8 @@ def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
             majorDisplay += border
 
     print(majorDisplay)
+    
+    # Write the output string to a TXT file
     exportInfo = f"std{stdID}MajorTranscript.txt"
     with open(exportInfo, 'w') as major:
         major.write(majorDisplay)
@@ -291,8 +308,10 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
         for degree in degrees:
             minorData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (
                 stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
+            # If there is no data found, skip and continue
             if minorData.empty:
                 continue
+            # If matching data was found, add the student details to the output string
             border = 60 * "=" + "\n"
             footer = f"     Minor Transcript for Level ({level} - {degree})     "
             minorDisplay += border
@@ -310,6 +329,7 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
             stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (
                 stdInfo['Degree'] == degree)]
             
+            # Get a list of terms to be counted
             terms = stdDataFilter['Term'].unique()
             
             for term in terms:
@@ -338,7 +358,8 @@ def minorTranscriptFeature(stdID, stdDetails, levels, degrees):
             minorDisplay += border
 
     print(minorDisplay)
-
+    
+    # Write the output string to a TXT file
     exportInfo = f"std{stdID}MinorTranscript.txt"
     with open(exportInfo, 'w') as minor:
         minor.write(minorDisplay)
@@ -353,8 +374,10 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
     for level in levels:
         for degree in degrees:
             fullData = stdDetails[(stdDetails['stdID'] == int(stdID)) & (stdDetails['Level'] == level) & (stdDetails['Degree'] == degree)]
+            # If there is no data found, skip and continue
             if fullData.empty:
                 continue
+            # If matching data was found, append student's name, stdID, college, department, major, minor, level, and no of terms to output string
             border = 60 * "=" + "\n"
             footer = f"     Full Transcript for Level ({level} - {degree})     "
             fullDisplay += border
@@ -370,6 +393,7 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
             fullDisplay += f"Number of terms: {fullData['Terms'].sum()}\n\n"
 
             stdDataFilter = stdInfo[(stdInfo['Level'] == level) & (stdInfo['Degree'] == degree)]
+            # count the no. of terms for this level and degree
             terms = stdDataFilter['Term'].unique()
             
             for term in terms:
@@ -377,6 +401,7 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
                 minorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Minor']
                 majorDataFilter = termDataFilter[termDataFilter['courseType'] == 'Major']
                 
+                # Append the courseID, courseName, creditHours, and average grades for each course in this term to the output
                 titleTerm = f"     Term ({term})     "
                 border = 60 * "=" + "\n"
                 fullDisplay += border
@@ -398,6 +423,7 @@ def fullTranscriptFeature(stdID, stdDetails, levels, degrees):
             fullDisplay += f"{footer.center(60, '*')}\n"
             fullDisplay += border
 
+    # Write the output string to a TXT file
     fullFile = f"std{stdID}FullTranscript.txt"
     with open(fullFile, 'w') as full:
         full.write(fullDisplay)
@@ -425,6 +451,7 @@ def recordRequest(stdID, request, requests):
     timestamp = datetime.datetime.now()
     new_entry = {
         'request': request,
+        # Get the current date and time
         'date': timestamp.strftime("%d/%m/%Y"),
         'time': timestamp.strftime("%I:%M %p")
     }
