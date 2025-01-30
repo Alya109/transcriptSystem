@@ -27,6 +27,7 @@ def sleep(mode):
     elif mode == 2:
         time.sleep(4)
 
+# Function to load the studentDetails.csv file
 def loadDetailsFile(filename):
     try:
         return pd.read_csv(filename)
