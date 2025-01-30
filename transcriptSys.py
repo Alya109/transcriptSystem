@@ -94,6 +94,7 @@ def startFeature():
     return levels, degrees
     
 def menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests):
+    cls()
     # Print the menu details
     print(
         "\n\033[1mStudent Transcript Generation System\033[0m\n"
