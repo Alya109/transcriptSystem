@@ -159,54 +159,59 @@ def detailsFeature(stdID, stdDetails, levels, degrees):
     
 # Statistics Feature shows student's records
 def statisticsFeature(stdID, levels, degrees):
-	stdData = pd.read_csv(f"{stdID}.csv")
-	
-	statDisplay = ""
-	if levels == ["U"]:
-		for degree in degrees:
-			degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
-			overallAverage = degreeData["Grade"].mean()
-			statDisplay += "=" * 40
-			statDisplay += f"\n********** Undergraduate **********\n"
-			statDisplay += "=" * 40
-			statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
-			statDisplay += f"Average (major and minor) of each term: \n"
-			
-			terms = degreeData["Term"].unique()
-			for index in terms:
-				average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
-				statDisplay += f"Term {index}: {average:.2f}\n"
-			maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
-			minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
-			
-			statDisplay += f"\nMinimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}"
-			statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}"
-	elif levels == ["G"] or levels == ["U", "G"]:
-		for degree in degrees:
-			degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
-			overallAverage = degreeData["Grade"].mean()
-			
-			statDisplay += "=" * 40
-			statDisplay += f"\n******** Graduate {degree} ********\n"
-			statDisplay += "=" * 40
-			statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
-			statDisplay += f"Average (major and minor) of each term: \n"
-			
-			terms = degreeData["Term"].unique()
-			for index in terms:
-				average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
-				statDisplay += f"Term {index}: {average:.2f}\n"
-			maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
-			minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
-			statDisplay += f"Minimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}\n"
-			statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}\n"
-	
-	print(statDisplay)
-	statsFile = f"std{stdID}statistics.txt"
-	with open(statsFile, "w") as stats:
-		stats.write(statDisplay)
-	sleep(2)
-	cls()
+    stdData = pd.read_csv(f"{stdID}.csv")
+    
+    statDisplay = ""
+    if levels == ["U"]:
+        for degree in degrees:
+            degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
+            overallAverage = degreeData["Grade"].mean()
+            statDisplay += "=" * 40
+            statDisplay += f"\n********** Undergraduate **********\n"
+            statDisplay += "=" * 40
+            statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
+            statDisplay += f"Average (major and minor) of each term: \n"
+            
+            terms = degreeData["Term"].unique()
+            for index in terms:
+                average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
+                statDisplay += f"Term {index}: {average:.2f}\n"
+            maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
+            minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
+            
+            statDisplay += f"\nMinimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}"
+            statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}"
+    elif levels == ["G"] or levels == ["U", "G"]:
+        for degree in degrees:
+            degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
+            overallAverage = degreeData["Grade"].mean()
+            
+            statDisplay += "=" * 40
+            statDisplay += f"\n******** Graduate {degree} ********\n"
+            statDisplay += "=" * 40
+            statDisplay += f"\nOverall Average (major and minor) for all terms: {overallAverage:.2f}\n"
+            statDisplay += f"Average (major and minor) of each term: \n"
+            
+            terms = degreeData["Term"].unique()
+            for index in terms:
+                average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
+                statDisplay += f"Term {index}: {average:.2f}\n"
+            repeatedCourses = degreeData[degreeData.courseName.duplicated()]
+            if not repeatedCourses.empty:
+                repeated = f"Yes, {repeatedCourses['courseName'].iloc[0]}"
+            else:
+                repeated = "No"
+            maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
+            minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
+            statDisplay += f"Minimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}\n"
+            statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}\n"
+            statDisplay += f"Do you have any repeated course(s)? {repeated}"
+    print(statDisplay)
+    statsFile = f"std{stdID}statistics.txt"
+    with open(statsFile, "w") as stats:
+        stats.write(statDisplay)
+    sleep(2)
+    cls()
 
 # Major Transcript shows students transscript of record based on their major courses
 def majorTranscriptFeature(stdID, stdDetails, levels, degrees):
