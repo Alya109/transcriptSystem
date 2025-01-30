@@ -196,11 +196,17 @@ def statisticsFeature(stdID, levels, degrees):
             for index in terms:
                 average = degreeData[(degreeData["Term"] == index)]["Grade"].mean()
                 statDisplay += f"Term {index}: {average:.2f}\n"
+            repeatedCourses = degreeData[degreeData.courseName.duplicated()]
+            if not repeatedCourses.empty:
+                repeated = f"Yes, {repeatedCourses['courseName'].iloc[0]}"
+            else:
+                repeated = "No"
             maxGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].max()]
             minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
             
             statDisplay += f"\nMinimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}"
             statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}"
+            statDisplay += f"\nDo you have any repeated course(s)? {repeated}\n"
     elif levels == ["G"] or levels == ["U", "G"]:
         for degree in degrees:
             degreeData = stdData[(stdData["Level"].isin(levels)) & (stdData["Degree"].isin(degrees))]
@@ -226,7 +232,7 @@ def statisticsFeature(stdID, levels, degrees):
             minGrade = degreeData[degreeData["Grade"] == degreeData["Grade"].min()]
             statDisplay += f"Minimum grade(s) and in which term(s): Term: {minGrade['Term'].iloc[0]}, Grade: {minGrade['Grade'].iloc[0]}\n"
             statDisplay += f"\nMaximum grade(s) and in which term(s): Term: {maxGrade['Term'].iloc[0]}, Grade: {maxGrade['Grade'].iloc[0]}\n"
-            statDisplay += f"Do you have any repeated course(s)? {repeated}"
+            statDisplay += f"Do you have any repeated course(s)? {repeated}\n"
     print(statDisplay)
     statsFile = f"std{stdID}statistics.txt"
     with open(statsFile, "w") as stats:
