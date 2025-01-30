@@ -114,29 +114,35 @@ def menuFeature(stdID, stdDetails, levels, degrees, requestCount, requests):
     if featureChoice == 1:
         detailsFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Student Details", requests)
+        requestCount += 1
     elif featureChoice == 2:
         statisticsFeature(stdID, levels, degrees)
         recordRequest(stdID, "Statistics", requests)
+        requestCount += 1
     elif featureChoice == 3:
         majorTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Major Transcript", requests)
+        requestCount += 1
     elif featureChoice == 4:
         minorTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Minor Transcript", requests)
+        requestCount += 1
     elif featureChoice == 5:
         fullTranscriptFeature(stdID, stdDetails, levels, degrees)
         recordRequest(stdID, "Full Transcript", requests)
+        requestCount += 1
     elif featureChoice == 6:
         previousRequestsFeature(stdID)
         recordRequest(stdID, "Previous Requests", requests)
+        requestCount += 1
     elif featureChoice == 7:
         newStudentFeature()
+        requestCount += 1
     elif featureChoice == 8:
         terminateFeature(requestCount)
     else:
         print("Invalid choice. Please try again.")
-    return requestCount + 1
-
+    return requestCount
 # Details Feature showing students personal information
 def detailsFeature(stdID, stdDetails, levels, degrees):
     details = stdDetails
