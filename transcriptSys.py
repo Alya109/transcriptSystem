@@ -35,7 +35,7 @@ def loadDetailsFile(filename):
         print(f"Error: File {filename} not found.")
         exit()
 
-# Student ID check function asking for student ID    
+# Student ID check function
 def studentIDCheck(stdID, stdDetails):
     while str(stdID) not in stdDetails['stdID'].astype(str).values:
         print("Invalid ID. Please try again.")
