@@ -516,6 +516,7 @@ def main():
         else:
             print("\nError: The student does not have records for the selected levels/degrees.\n")
             print("Please reselect levels/degrees or enter a different student ID.\n")
+            sleep(2)
             cls()
     
     requestCount = 0
